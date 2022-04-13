@@ -3,7 +3,6 @@
 
 import socket
 import os
-from typing import Tuple
 
 LISTEN_MAX = 128
 
