@@ -8,7 +8,7 @@ LISTEN_MAX = 128
 
 
 class Client(object):
-    socket: socket.socket
+    csocket: socket.socket
     message: str
     host: str
     port: int
