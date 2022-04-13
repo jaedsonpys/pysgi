@@ -43,7 +43,7 @@ class SocketHandler(object):
             if env_host: self._host = env_host
             if env_port: self._port = env_port
 
-    def create_socket(self, host: str, port: int) -> None:
+    def create_socket(self, host: str = None, port: int = None) -> None:
         _host = host if host else self._host
         _port = port if port else self._port
 
