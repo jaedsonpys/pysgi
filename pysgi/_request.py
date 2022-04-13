@@ -1,6 +1,7 @@
 # this file has all the code that handles
 # requests coming from a client.
 
+from typing import Any
 from http_parser.pyparser import HttpParser
 
 
@@ -21,3 +22,11 @@ def parser_http(http_message: str) -> dict:
         http_content['body'] = parser.recv_body()
 
     return http_content
+
+
+class ClientRequest(object):
+    body: str
+    method: str
+    headers: dict
+    args: dict
+    body: Any
