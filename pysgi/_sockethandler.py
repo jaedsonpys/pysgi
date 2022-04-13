@@ -8,6 +8,12 @@ LISTEN_MAX = 128
 
 
 class Client(object):
+    """The Client class is used to store
+    the connection information of a client,
+    such as its socket, host, port and the
+    message that was sent by it.
+    """
+
     csocket: socket.socket
     message: str
     host: str
