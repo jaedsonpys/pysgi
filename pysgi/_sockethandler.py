@@ -4,6 +4,8 @@
 import socket
 import os
 
+LISTEN_MAX = 128
+
 
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
@@ -18,3 +20,12 @@ class SocketHandler(object):
 
             if env_host: self._host = env_host
             if env_port: self._port = env_port
+
+    def create_socket(self) -> None:
+        address = (self._host, self._port)
+
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.setblocking(False)
+
+        self._socket.bind(address)
+        self._socket.listen(LISTEN_MAX)
