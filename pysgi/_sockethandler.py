@@ -69,3 +69,13 @@ class SocketHandler(object):
 
         client = Client(client_socket, _host, _port, client_msg)
         return client
+
+
+if __name__ == '__main__':
+    server = SocketHandler()
+    server.create_socket()
+
+    client = server.wait_connection()
+    print(f'client {client.host} connected')
+
+    client.csocket.send(b'HTTP/1.1 200 OK\n\nHello!')
