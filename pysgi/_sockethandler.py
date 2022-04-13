@@ -3,6 +3,7 @@
 
 import socket
 import os
+from typing import Tuple
 
 LISTEN_MAX = 128
 
@@ -29,3 +30,16 @@ class SocketHandler(object):
 
         self._socket.bind(address)
         self._socket.listen(LISTEN_MAX)
+
+    def wait_connection(self) -> Tuple[Tuple[socket.socket, str], str]:
+        client_socket, addr = self._socket.accept()
+        client_socket.settimeout(2)
+
+        try:
+            client_msg = client_socket.recv(1024)
+        except socket.timeout:
+            client_socket.close()
+        else:
+            client_socket.settimeout(None)
+
+        return ((client_socket, addr), client_msg)
