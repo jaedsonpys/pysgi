@@ -1,15 +1,16 @@
 # this file has all the code that handles
 # requests coming from a client.
 
+from socket import timeout as sock_timeout
+from threading import Thread
 from types import FunctionType
 from typing import Any
+
 from http_parser.pyparser import HttpParser
 
 from ._sockethandler import Client
-from .route import Route
 from .response import make_response
-
-from threading import Thread
+from .route import Route
 
 
 class Request(object):
@@ -26,7 +27,7 @@ class Request(object):
 
         try:
             client_msg = client.csocket.recv(1024)
-        except client.csocket.timeout:
+        except sock_timeout:
             # in this situation, the client has not
             # sent any message to the server, and
             # therefore its request cannot be processed,
