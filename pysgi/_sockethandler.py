@@ -15,7 +15,6 @@ class Client(object):
     """
 
     csocket: socket.socket
-    message: str
     host: str
     port: int
 
@@ -24,15 +23,13 @@ class Client(object):
         _socket: socket.socket,
         host: str,
         port: int,
-        message: str
     ) -> None:
         self.csocket = _socket
         self.host = host
         self.port = port
-        self.message = message
 
     def __repr__(self) -> str:
-        return f'ClientSocket(socket={self.csocket}, address=({self.host, self.port}), message={self.message}'
+        return f'ClientSocket(socket={self.csocket}, address=({self.host, self.port}))'
 
 
 class SocketHandler(object):
@@ -63,19 +60,11 @@ class SocketHandler(object):
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
-        client_socket.settimeout(2)
-
-        try:
-            client_msg = client_socket.recv(1024)
-        except socket.timeout:
-            client_socket.close()
-        else:
-            client_socket.settimeout(None)
 
         _host = addr[0]
         _port = addr[1]
 
-        client = Client(client_socket, _host, _port, client_msg)
+        client = Client(client_socket, _host, _port)
         return client
 
     def send_response(client: Client, response: bytes) -> None:
