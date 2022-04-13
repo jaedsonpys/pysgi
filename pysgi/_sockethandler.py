@@ -62,5 +62,8 @@ class SocketHandler(object):
         else:
             client_socket.settimeout(None)
 
-        client = Client(client_socket, addr, client_msg)
+        _host = addr[0]
+        _port = addr[1]
+
+        client = Client(client_socket, _host, _port, client_msg)
         return client
