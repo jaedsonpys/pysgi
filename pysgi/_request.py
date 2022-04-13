@@ -30,3 +30,7 @@ class ClientRequest(object):
     path: str
     headers: dict
     args: dict
+
+    def __repr__(self) -> str:
+        return f'ClientRequest(path={self.path}, method={self.method}, \
+                headers={self.headers}, args={self.args}, body={self.body})'
