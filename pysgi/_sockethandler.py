@@ -81,6 +81,10 @@ class SocketHandler(object):
     def send_response(client: Client, response: bytes) -> None:
         client.csocket.send(response)
 
+    def close_server(self) -> None:
+        self._socket.shutdown(socket.SHUT_RDWR)
+        self._socket.close()
+
 
 if __name__ == '__main__':
     server = SocketHandler()
