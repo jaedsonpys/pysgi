@@ -7,6 +7,7 @@ from route import Route
 socket = SocketHandler()
 routes = {}
 
+
 class PySGI(object):
     def route(self, path: str, methods: list = ['GET']) -> FunctionType:
         route = Route()
