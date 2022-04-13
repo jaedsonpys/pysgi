@@ -56,6 +56,8 @@ class SocketHandler(object):
         address = (_host, _port)
 
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
         self._socket.bind(address)
         self._socket.listen(LISTEN_MAX)
 
