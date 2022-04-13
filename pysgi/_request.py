@@ -58,8 +58,8 @@ class ClientRequest(object):
     args: dict
 
     def __repr__(self) -> str:
-        return f'ClientRequest(path={self.path}, method={self.method}, \
-                headers={self.headers}, args={self.args}, body={self.body})'
+        return f'ClientRequest(path={self.path}, method={self.method},' \
+               f'headers={self.headers}, args={self.args}, body={self.body})'
 
 
 def parser_http(http_message: str) -> ClientRequest:
