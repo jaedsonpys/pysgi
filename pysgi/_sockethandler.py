@@ -10,7 +10,7 @@ LISTEN_MAX = 128
 
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
-        self._socket: socket.SocketIO
+        self._socket: socket.socket
 
         self._host = '127.0.0.1'
         self._port = 5500
