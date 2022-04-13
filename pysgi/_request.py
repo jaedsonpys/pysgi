@@ -46,6 +46,9 @@ class Request(object):
                     response = route_function.__call__(route_info)
                 except TypeError:
                     response = route_function.__call__()
+
+                if isinstance(response, str) is False:
+                    raise ValueError(f'The function of a route must return a string, not "{type(response)}"')
             else:
                 response = make_response('Method Not Allowed', status=405)
 
