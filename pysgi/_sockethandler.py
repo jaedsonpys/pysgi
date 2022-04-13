@@ -13,6 +13,9 @@ class ClientSocket(object):
     address: tuple
     message: str
 
+    def __repr__(self) -> str:
+        return f'ClientSocket(socket={self.socket}, address={self.address}, message={self.message}'
+
 
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
