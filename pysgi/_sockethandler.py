@@ -48,7 +48,7 @@ class SocketHandler(object):
         self._socket.bind(address)
         self._socket.listen(LISTEN_MAX)
 
-    def wait_connection(self) -> Tuple[Tuple[socket.socket, str], str]:
+    def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
         client_socket.settimeout(2)
 
