@@ -1,3 +1,6 @@
+# this file has all the code that handles
+# requests coming from a client.
+
 from http_parser.pyparser import HttpParser
 
 
