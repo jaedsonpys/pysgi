@@ -43,11 +43,9 @@ class Request(object):
                 route_function: FunctionType = route_info.function
 
                 try:
-                    route_view = route_function.__call__(route_info)
+                    response = route_function.__call__(route_info)
                 except TypeError:
-                    route_view = route_function.__call__()
-
-                response = route_view
+                    response = route_function.__call__()
             else:
                 response = make_response('Method Not Allowed', status=405)
 
