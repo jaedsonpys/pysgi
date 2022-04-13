@@ -10,17 +10,20 @@ LISTEN_MAX = 128
 
 class Client(object):
     socket: socket.socket
-    address: tuple
     message: str
+    host: str
+    port: int
 
     def __init__(
         self,
         _socket: socket.socket,
-        address: str,
+        host: str,
+        port: int,
         message: str
     ) -> None:
         self.socket = _socket
-        self.address = address
+        self.host = host
+        self.port = port
         self.message = message
 
     def __repr__(self) -> str:
