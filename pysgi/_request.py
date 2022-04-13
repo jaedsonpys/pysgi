@@ -14,7 +14,7 @@ from threading import Thread
 
 class Request(object):
     def __init__(self, routes: dict[Route]) -> None:
-        self._route = routes
+        self._routes = routes
 
     def handle_request(self, client: Client) -> None:
         # create a thread to handle request
