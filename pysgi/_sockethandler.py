@@ -70,6 +70,9 @@ class SocketHandler(object):
         client = Client(client_socket, _host, _port, client_msg)
         return client
 
+    def send_response(client: Client, response: bytes) -> None:
+        client.csocket.send(response)
+
 
 if __name__ == '__main__':
     server = SocketHandler()
