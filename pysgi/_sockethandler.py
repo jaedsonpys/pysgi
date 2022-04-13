@@ -26,8 +26,6 @@ class SocketHandler(object):
         address = (self._host, self._port)
 
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._socket.setblocking(False)
-
         self._socket.bind(address)
         self._socket.listen(LISTEN_MAX)
 
