@@ -23,23 +23,27 @@ class Request(object):
 
     def _handle_request(self, client: Client) -> None:
         parse = parser_http(client.message)
-
         route_info = self._routes.get(parse.path)
-        request_method = parse.method
 
-        # if the request method is accepted, the
-        # request is handled
-        if request_method in route_info.allowed_methods:
-            route_function: FunctionType = route_info.function
-
-            try:
-                route_view = route_function.__call__(route_info)
-            except TypeError:
-                route_view = route_function.__call__()
-
-            response = route_view
+        # if the route is not found
+        if route_info is None:
+            response = make_response('Not Found', status=404)
         else:
-            response = make_response('Method Not Allowed', status=405)
+            request_method = parse.method
+
+            # if the request method is accepted, the
+            # request is handled
+            if request_method in route_info.allowed_methods:
+                route_function: FunctionType = route_info.function
+
+                try:
+                    route_view = route_function.__call__(route_info)
+                except TypeError:
+                    route_view = route_function.__call__()
+
+                response = route_view
+            else:
+                response = make_response('Method Not Allowed', status=405)
 
         # sending response to client
         client.csocket.send(response.encode())
