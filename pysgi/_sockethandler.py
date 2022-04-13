@@ -8,7 +8,7 @@ from typing import Tuple
 LISTEN_MAX = 128
 
 
-class ClientSocket(object):
+class Client(object):
     socket: socket.socket
     address: tuple
     message: str
