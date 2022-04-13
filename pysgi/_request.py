@@ -45,7 +45,10 @@ class Request(object):
             else:
                 response = make_response('Method Not Allowed', status=405)
 
-        # sending response to client
+        self._send_response(client, response)
+
+    @staticmethod
+    def _send_response(client: Client, response: str) -> None:
         client.csocket.send(response.encode())
         client.csocket.close()
 
