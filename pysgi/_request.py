@@ -1,8 +1,20 @@
 # this file has all the code that handles
 # requests coming from a client.
 
+from types import FunctionType
 from typing import Any
 from http_parser.pyparser import HttpParser
+
+from ._sockethandler import Client
+from .route import Route
+from .response import make_response
+
+from threading import Thread
+
+
+class Request(object):
+    def __init__(self, routes: dict[Route]) -> None:
+        self._route = routes
 
 
 class ClientRequest(object):
