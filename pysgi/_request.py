@@ -41,6 +41,10 @@ class Request(object):
         else:
             response = make_response('Method Not Allowed', status=405)
 
+        # sending response to client
+        client.csocket.send(response.encode())
+        client.csocket.close()
+
 
 class ClientRequest(object):
     body: Any
