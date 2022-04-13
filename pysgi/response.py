@@ -39,5 +39,5 @@ def make_response(
     http.append('')
     http.append(body)
 
-    http_message = '\n\r\r'.join(http)
+    http_message = '\n'.join(http)
     return http_message
