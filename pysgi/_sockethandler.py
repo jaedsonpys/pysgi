@@ -20,13 +20,13 @@ class Client(object):
         port: int,
         message: str
     ) -> None:
-        self.socket = _socket
+        self.csocket = _socket
         self.host = host
         self.port = port
         self.message = message
 
     def __repr__(self) -> str:
-        return f'ClientSocket(socket={self.socket}, address={self.address}, message={self.message}'
+        return f'ClientSocket(socket={self.csocket}, address=({self.host, self.port}), message={self.message}'
 
 
 class SocketHandler(object):
