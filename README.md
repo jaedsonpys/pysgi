@@ -7,4 +7,3 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 - requisition body;
 - URL parameters;
 - dynamic URLs;
-- customer information.
