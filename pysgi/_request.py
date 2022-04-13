@@ -22,7 +22,23 @@ class Request(object):
         ct.start()
 
     def _handle_request(self, client: Client) -> None:
-        parse = parser_http(client.message)
+        client.csocket.settimeout(5)
+
+        try:
+            client_msg = client.csocket.recv(1024)
+        except client.csocket.timeout:
+            # in this situation, the client has not
+            # sent any message to the server, and
+            # therefore its request cannot be processed,
+            # closing the connection with the client
+            # without returning anything.
+            
+            client.csocket.close()
+            return None
+        else:
+            client.csocket.settimeout(None)
+
+        parse = parser_http(client_msg)
 
         if parse.is_valid() is False:
             # returning status 400 for invalid requests
