@@ -23,6 +23,12 @@ class Request(object):
 
     def _handle_request(self, client: Client) -> None:
         parse = parser_http(client.message)
+
+        if parse.is_valid() is False:
+            # returning status 400 for invalid requests
+            response = make_response('Bad Request', 400)
+            return self._send_response(client, response)
+
         route_info = self._routes.get(parse.path)
 
         # if the route is not found
