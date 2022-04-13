@@ -16,6 +16,31 @@ class Request(object):
     def __init__(self, routes: dict[Route]) -> None:
         self._route = routes
 
+    def handle_request(self, client: Client) -> None:
+        # create a thread to handle request
+        ct = Thread(target=self._handle_request, args=(client,))
+        ct.start()
+
+    def _handle_request(self, client: Client) -> None:
+        parse = parser_http(client.message)
+
+        route_info = self._routes.get(parse.path)
+        request_method = parse.method
+
+        # if the request method is accepted, the
+        # request is handled
+        if request_method in route_info.allowed_methods:
+            route_function: FunctionType = route_info.function
+
+            try:
+                route_view = route_function.__call__(route_info)
+            except TypeError:
+                route_view = route_function.__call__()
+
+            response = route_view
+        else:
+            response = make_response('Method Not Allowed', status=405)
+
 
 class ClientRequest(object):
     body: Any
