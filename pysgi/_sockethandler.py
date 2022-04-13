@@ -13,6 +13,16 @@ class ClientSocket(object):
     address: tuple
     message: str
 
+    def __init__(
+        self,
+        _socket: socket.socket,
+        address: str,
+        message: str
+    ) -> None:
+        self.socket = _socket
+        self.address = address
+        self.message = message
+
     def __repr__(self) -> str:
         return f'ClientSocket(socket={self.socket}, address={self.address}, message={self.message}'
 
