@@ -25,8 +25,8 @@ def parser_http(http_message: str) -> dict:
 
 
 class ClientRequest(object):
-    body: str
+    body: Any
     method: str
+    path: str
     headers: dict
     args: dict
-    body: Any
