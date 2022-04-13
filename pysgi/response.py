@@ -2,7 +2,7 @@ CONTENT_TYPE = 'text/html'
 SERVER_NAME = 'PySGI'
 
 
-def build_http(
+def make_response(
     body: str,
     status: int = 200,
     headers: dict = None,
