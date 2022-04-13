@@ -8,6 +8,12 @@ from typing import Tuple
 LISTEN_MAX = 128
 
 
+class ClientSocket(object):
+    socket: socket.socket
+    address: tuple
+    message: str
+
+
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
         self._socket: socket.socket
