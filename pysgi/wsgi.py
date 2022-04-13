@@ -33,5 +33,4 @@ class PySGI(object):
                 client = _server.wait_connection()
                 request.handle_request(client)
         except KeyboardInterrupt:
-            _server._socket.close()
-            _server._socket.shutdown(1)
+            _server.close_server()
