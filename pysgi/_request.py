@@ -57,6 +57,9 @@ class ClientRequest(object):
     headers: dict
     args: dict
 
+    def is_valid(self) -> bool:
+        return self.path and self.method
+
     def __repr__(self) -> str:
         return f'ClientRequest(path={self.path}, method={self.method},' \
                f'headers={self.headers}, args={self.args}, body={self.body})'
