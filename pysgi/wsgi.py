@@ -1,10 +1,10 @@
 from types import FunctionType
 
-from _request import parser_http
-from _sockethandler import SocketHandler
-from route import Route
+from ._sockethandler import SocketHandler
+from .route import Route
+from ._request import Request
 
-socket = SocketHandler()
+_server = SocketHandler()
 routes = {}
 
 
@@ -23,3 +23,15 @@ class PySGI(object):
             return function
 
         return _decorator_func
+
+    def run(self, host: str = None, port: str = None) -> None:
+        _server.create_socket(host=host, port=port)
+        request = Request(routes)
+
+        try:
+            while True:
+                client = _server.wait_connection()
+                request.handle_request(client)
+        except KeyboardInterrupt:
+            _server._socket.close()
+            _server._socket.shutdown(1)
