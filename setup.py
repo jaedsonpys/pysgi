@@ -1,5 +1,5 @@
 from setuptools import setup
-from .pysgi import __version__
+from pysgi import __version__
 
 setup(
     name='PySGI',
