@@ -62,9 +62,9 @@ class Request(object):
                 route_function: FunctionType = route_info.function
 
                 try:
-                    response = route_function.__call__(route_info)
-                except TypeError:
                     response = route_function.__call__()
+                except TypeError:
+                    response = route_function.__call__(parse)
 
                 if isinstance(response, str) is False:
                     raise ValueError(f'The function of a route must return a string, not "{type(response)}"')
