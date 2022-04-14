@@ -39,22 +39,23 @@ class Request(object):
             return None
         else:
             client.csocket.settimeout(None)
+            
+        request = ClientRequest()
+        request.parser_http(client_msg)
 
-        parse = parser_http(client_msg)
-
-        if parse.is_valid() is False:
+        if request.is_valid() is False:
             # returning status 400 for invalid requests
             response = make_response('Bad Request', 400)
             return self._send_response(client, response)
 
-        print_request(parse.path, parse.method, client.host)
-        route_info = self._routes.get(parse.path)
+        print_request(request.path, request.method, client.host)
+        route_info = self._routes.get(request.path)
 
         # if the route is not found
         if route_info is None:
             response = make_response('Not Found', status=404)
         else:
-            request_method = parse.method
+            request_method = request.method
 
             # if the request method is accepted, the
             # request is handled
@@ -64,7 +65,7 @@ class Request(object):
                 try:
                     response = route_function.__call__()
                 except TypeError:
-                    response = route_function.__call__(parse)
+                    response = route_function.__call__(request)
 
                 if isinstance(response, str) is False:
                     raise ValueError(f'The function of a route must return a string, not "{type(response)}"')
@@ -87,27 +88,22 @@ class ClientRequest(object):
     args: dict
 
     def is_valid(self) -> bool:
-        return self.path is not None
+        return self.path is not None    
+
+    def parser_http(self, http_message: str) -> None:
+        parser = HttpParser()
+        parser.execute(http_message, len(http_message))
+
+        self.path = parser.get_path()
+        self.args = parser.get_query_string()
+        self.method = parser.get_method()
+
+        if parser.is_headers_complete():
+            self.headers = parser.get_headers()
+
+        if parser.is_partial_body():
+            self.body = parser.recv_body()
 
     def __repr__(self) -> str:
         return f'ClientRequest(path={self.path}, method={self.method},' \
                f'headers={self.headers}, args={self.args}, body={self.body})'
-
-
-def parser_http(http_message: str) -> ClientRequest:
-    parser = HttpParser()
-    parser.execute(http_message, len(http_message))
-
-    client_request = ClientRequest()
-
-    client_request.path = parser.get_path()
-    client_request.args = parser.get_query_string()
-    client_request.method = parser.get_method()
-
-    if parser.is_headers_complete():
-        client_request.headers = parser.get_headers()
-
-    if parser.is_partial_body():
-        client_request.body = parser.recv_body()
-
-    return client_request
