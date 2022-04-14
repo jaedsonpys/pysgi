@@ -24,7 +24,7 @@ class Request(object):
         ct.start()
 
     def _handle_request(self, client: Client) -> None:
-        client.csocket.settimeout(5)
+        client.csocket.settimeout(2.5)
 
         try:
             client_msg = client.csocket.recv(1024)
