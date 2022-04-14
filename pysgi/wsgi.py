@@ -1,8 +1,9 @@
 from types import FunctionType
 
+from ._print import print_request, print_start
+from ._request import Request
 from ._sockethandler import SocketHandler
 from .route import Route
-from ._request import Request
 
 _server = SocketHandler()
 routes = {}
@@ -25,8 +26,10 @@ class PySGI(object):
         return _decorator_func
 
     def run(self, host: str = None, port: str = None) -> None:
-        _server.create_socket(host=host, port=port)
+        address = _server.create_socket(host=host, port=port)
         request = Request(routes)
+
+        print_start(*address)
 
         try:
             while True:
