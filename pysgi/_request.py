@@ -87,7 +87,7 @@ class ClientRequest(object):
     args: dict
 
     def is_valid(self) -> bool:
-        return self.path and self.method
+        return self.path is not None
 
     def __repr__(self) -> str:
         return f'ClientRequest(path={self.path}, method={self.method},' \
