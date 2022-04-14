@@ -1,6 +1,6 @@
 from types import FunctionType
 
-from ._print import print_request, print_start
+from ._print import print_start
 from ._request import Request
 from ._sockethandler import SocketHandler
 from .route import Route

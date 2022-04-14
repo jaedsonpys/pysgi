@@ -11,6 +11,7 @@ from http_parser.pyparser import HttpParser
 from ._sockethandler import Client
 from .response import make_response
 from .route import Route
+from ._print import print_request
 
 
 class Request(object):
@@ -40,6 +41,7 @@ class Request(object):
             client.csocket.settimeout(None)
 
         parse = parser_http(client_msg)
+        print_request(parse.path, parse.method, client.host)
 
         if parse.is_valid() is False:
             # returning status 400 for invalid requests
