@@ -41,13 +41,13 @@ class Request(object):
             client.csocket.settimeout(None)
 
         parse = parser_http(client_msg)
-        print_request(parse.path, parse.method, client.host)
 
         if parse.is_valid() is False:
             # returning status 400 for invalid requests
             response = make_response('Bad Request', 400)
             return self._send_response(client, response)
 
+        print_request(parse.path, parse.method, client.host)
         route_info = self._routes.get(parse.path)
 
         # if the route is not found
