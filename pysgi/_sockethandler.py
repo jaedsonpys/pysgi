@@ -46,7 +46,7 @@ class SocketHandler(object):
             if env_host: self._host = env_host
             if env_port: self._port = env_port
 
-    def create_socket(self, host: str = None, port: int = None) -> None:
+    def create_socket(self, host: str = None, port: int = None) -> tuple:
         _host = host if host else self._host
         _port = port if port else self._port
 
@@ -57,6 +57,8 @@ class SocketHandler(object):
 
         self._socket.bind(address)
         self._socket.listen(LISTEN_MAX)
+
+        return address
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
