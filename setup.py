@@ -9,5 +9,6 @@ setup(
     author_email='imunknowuser@protonmail.com',
     packages=['pysgi'],
     install_requires=['http-parser'],
-    license='MIT License'
+    license='MIT License',
+    python_requires='=>3.9'
 )
