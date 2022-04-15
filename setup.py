@@ -9,5 +9,14 @@ setup(
     packages=['pysgi'],
     install_requires=['http-parser'],
     license='MIT License',
-    python_requires='>= 3.9'
+    python_requires='>= 3.9',
+    classifiers=[
+        'Development Status :: Stable',
+        'Programming Language :: Python',
+        'Intended Audience :: Developers',
+        'Environment :: Web',
+        'Topic :: Internet :: WWW/HTTP :: WSGI',
+        'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+        'Topic :: Software Development :: Libraries :: Application Frameworks'
+    ]
 )
