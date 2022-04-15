@@ -9,7 +9,7 @@ from typing import Any
 from http_parser.pyparser import HttpParser
 
 from ._sockethandler import Client
-from .response import make_response
+from .response import Response, make_response
 from .route import Route
 from ._print import print_request
 
@@ -66,17 +66,14 @@ class Request(object):
                     response = route_function.__call__()
                 except TypeError:
                     response = route_function.__call__(request)
-
-                if isinstance(response, str) is False:
-                    raise ValueError(f'The function of a route must return a string, not "{type(response)}"')
             else:
                 response = make_response('Method Not Allowed', status=405)
 
         self._send_response(client, response)
 
     @staticmethod
-    def _send_response(client: Client, response: str) -> None:
-        client.csocket.send(response.encode())
+    def _send_response(client: Client, response: Response) -> None:
+        client.csocket.send(response.get_http_message().encode())
         client.csocket.close()
 
 
