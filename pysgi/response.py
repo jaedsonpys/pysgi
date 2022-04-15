@@ -8,8 +8,8 @@ SERVER_NAME = 'PySGI'
 class Response(object):
     body: str
     status: int
-    headers: dict
-    cookies: dict
+    headers: dict = {}
+    cookies: dict = {}
     _http_message: str
 
     def set_header(self, key: str, value: str) -> None:
