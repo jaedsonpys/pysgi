@@ -33,7 +33,7 @@ def make_response(
     status: int = 200,
     headers: dict = None,
     cookies: dict = None
-) -> str:
+) -> Response:
     http = list()
     http.append(f'HTTP/1.1 {status}')
 
@@ -42,14 +42,20 @@ def make_response(
     # set default headers
     http.append(f'Server: {SERVER_NAME}')
 
+    response = Response()
+    response.set_status(status)
+    response.set_header('Server', SERVER_NAME)
+
     if headers:
         for key, value in headers.items():
             if key not in used_headers:
                 header_str = f'{key}: {value}'
                 used_headers.append(key)
                 http.append(header_str)
+                response.set_header(key, value)
     else:
         http.append(f'Content-Type: {CONTENT_TYPE}')
+        response.set_header('Content-Type', CONTENT_TYPE)
 
     if cookies:
         cookies_list = []
@@ -57,6 +63,7 @@ def make_response(
         for key, value in cookies.items():
             cookie_str = f'{key}={value}'
             cookies_list.append(cookie_str)
+            response.set_cookie(key, value)
 
         cookie_header = 'Set-Cookie: ' + '; '.join(cookies_list)
         http.append(cookie_header)
@@ -66,4 +73,6 @@ def make_response(
     http.append(body)
 
     http_message = '\n'.join(http)
-    return http_message
+    response.set_http_message(http_message)
+
+    return response
