@@ -9,6 +9,12 @@ class Response(object):
     cookies: dict
     _full_message: str
 
+    def set_header(self, key: str, value: str) -> None:
+        self.headers[key] = value
+
+    def set_cookie(self, key: str, value: str) -> None:
+        self.cookies[key] = value
+
 
 def make_response(
     body: str,
