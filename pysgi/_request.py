@@ -63,9 +63,19 @@ class Request(object):
                 route_function: FunctionType = route_info.function
 
                 try:
-                    response = route_function.__call__()
+                    function_response = route_function.__call__()
                 except TypeError:
-                    response = route_function.__call__(request)
+                    function_response = route_function.__call__(request)
+
+                if isinstance(function_response, tuple):
+                    # getting body and status of response 
+                    # in use cases of: return "Hello", 200.
+                    body, status = function_response
+                    response = make_response(body, status=status)
+                elif isinstance(function_response, str):
+                    response = make_response(function_response)
+                elif isinstance(function_response, Response):
+                    response = function_response
             else:
                 response = make_response('Method Not Allowed', status=405)
 
