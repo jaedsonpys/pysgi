@@ -1,4 +1,3 @@
-CONTENT_TYPE = 'text/html'
 SERVER_NAME = 'PySGI'
 
 
@@ -34,6 +33,7 @@ class Response(object):
 def make_response(
     body: str,
     status: int = 200,
+    content_type: str = 'text/html',
     headers: dict = None,
     cookies: dict = None
 ) -> Response:
@@ -44,9 +44,11 @@ def make_response(
 
     # set default headers
     http.append(f'Server: {SERVER_NAME}')
+    http.append(f'Content-Type: {content_type}')
 
     response = Response()
     response.set_status(status)
+    response.set_header('Content-Type', content_type)
     response.set_header('Server', SERVER_NAME)
 
     if headers:
@@ -56,9 +58,6 @@ def make_response(
                 used_headers.append(key)
                 http.append(header_str)
                 response.set_header(key, value)
-    else:
-        http.append(f'Content-Type: {CONTENT_TYPE}')
-        response.set_header('Content-Type', CONTENT_TYPE)
 
     if cookies:
         cookies_list = []
