@@ -1,3 +1,7 @@
+from typing import Union
+import json
+
+
 SERVER_NAME = 'PySGI'
 
 
@@ -31,7 +35,7 @@ class Response(object):
 
 
 def make_response(
-    body: str,
+    body: Union[str, dict, list],
     status: int = 200,
     content_type: str = 'text/html',
     headers: dict = None,
@@ -72,8 +76,18 @@ def make_response(
 
     # defining the body of the response
     http.append('')
-    http.append(body)
-    response.set_body(body)
+    
+    # if the body is a JSON
+    if isinstance(body, dict) or isinstance(body, list):
+        body_data = json.dumps(body)
+    elif isinstance(body, str):
+        body_data = body
+    else:
+        # body type not accepted
+        raise TypeError(f'The body argument can be "dict", "list", and "str", but not {type(body)}')
+
+    http.append(body_data)
+    response.set_body(body_data)
 
     http_message = '\n'.join(http)
     response.set_http_message(http_message)
