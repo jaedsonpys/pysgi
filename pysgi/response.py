@@ -2,6 +2,14 @@ CONTENT_TYPE = 'text/html'
 SERVER_NAME = 'PySGI'
 
 
+class Response(object):
+    body: str
+    status: int
+    headers: dict
+    cookies: dict
+    _full_message: str
+
+
 def make_response(
     body: str,
     status: int = 200,
