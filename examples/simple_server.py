@@ -6,15 +6,15 @@ server = PySGI()
 
 @server.route('/')
 def index():
-    return make_response('Hello World from PySGI!')
+    return 'Hello World from PySGI!'
 
 
 @server.route('/methods', methods=['GET', 'POST'])
 def methods(request):
     if request.method == 'GET':
-        response = make_response('Method GET used')
+        response = 'Method GET used'
     elif request.method == 'POST':
-        response = make_response('Method POST used')
+        response = 'Method POST used', 201  # returning body and response status
 
     return response
 
