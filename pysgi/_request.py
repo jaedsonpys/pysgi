@@ -11,7 +11,7 @@ from http_parser.pyparser import HttpParser
 from ._sockethandler import Client
 from .response import Response, make_response
 from .route import Route
-from ._print import print_request
+from ._print import print_response
 
 
 class Request(object):
@@ -48,7 +48,6 @@ class Request(object):
             response = make_response('Bad Request', 400)
             return self._send_response(client, response)
 
-        print_request(request.path, request.method, client.host)
         route_info = self._routes.get(request.path)
 
         # if the route is not found
@@ -80,6 +79,7 @@ class Request(object):
                 response = make_response('Method Not Allowed', status=405)
 
         self._send_response(client, response)
+        print_response(response.status, request.path, request.method, client.host)
 
     @staticmethod
     def _send_response(client: Client, response: Response) -> None:
