@@ -7,7 +7,7 @@ class Response(object):
     status: int
     headers: dict
     cookies: dict
-    _full_message: str
+    _http_message: str
 
     def set_header(self, key: str, value: str) -> None:
         self.headers[key] = value
@@ -20,6 +20,12 @@ class Response(object):
             self.status = status
         else:
             raise TypeError(f'The "status" argument must be of type integer, not {type(status)}')
+
+    def set_http_message(self, http_message: str) -> None:
+        self._http_message = http_message
+
+    def get_http_message(self) -> str:
+        return self._http_message
 
 
 def make_response(
