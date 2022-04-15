@@ -14,6 +14,12 @@ class Response(object):
 
     def set_cookie(self, key: str, value: str) -> None:
         self.cookies[key] = value
+    
+    def set_status(self, status: int) -> None:
+        if isinstance(status, int):
+            self.status = status
+        else:
+            raise TypeError(f'The "status" argument must be of type integer, not {type(status)}')
 
 
 def make_response(
