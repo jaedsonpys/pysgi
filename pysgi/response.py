@@ -74,6 +74,7 @@ def make_response(
     # defining the body of the response
     http.append('')
     http.append(body)
+    response.set_body(body)
 
     http_message = '\n'.join(http)
     response.set_http_message(http_message)
