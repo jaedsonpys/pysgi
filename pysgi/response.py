@@ -21,6 +21,9 @@ class Response(object):
         else:
             raise TypeError(f'The "status" argument must be of type integer, not {type(status)}')
 
+    def set_body(self, body: str) -> None:
+        self.body = body
+
     def set_http_message(self, http_message: str) -> None:
         self._http_message = http_message
 
