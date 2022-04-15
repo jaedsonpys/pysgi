@@ -18,5 +18,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: WSGI',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
         'Topic :: Software Development :: Libraries :: Application Frameworks'
-    ]
+    ],
+    project_urls={
+        'Source code': 'https://github.com/jaedsonpys/pysgi',
+        'License': 'https://github.com/jaedsonpys/pysgi/blob/master/LICENSE'
+    }
 )
