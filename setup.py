@@ -10,5 +10,5 @@ setup(
     packages=['pysgi'],
     install_requires=['http-parser'],
     license='MIT License',
-    python_requires='=>3.9'
+    python_requires='>= 3.9'
 )
