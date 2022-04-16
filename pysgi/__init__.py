@@ -6,14 +6,14 @@ With it, you can easily create complex and fast servers,
 see an example:
 
 ```python
-from pysgi import PySGI, make_response
+from pysgi import PySGI
 
 server = PySGI()
 
 
 @server.route('/')
 def index():
-     return make_response('Hello World from PySGI!')
+     return 'Hello World from PySGI!'
 
 server.run()
 ```

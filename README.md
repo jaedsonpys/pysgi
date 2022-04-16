@@ -14,14 +14,13 @@ Here's a brief demonstration of using the PySGI library to create a simple web s
 
 ```python
 from pysgi import PySGI
-from pysgi import make_response
 
 server = PySGI()
 
 
 @server.route('/')
 def index():
-    return make_response('Hello World from PySGI!')
+    return 'Hello World from PySGI!'
 
 
 if __name__ == '__main__':
