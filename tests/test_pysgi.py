@@ -9,7 +9,7 @@ class TestPySGI(unittest.TestCase):
         response.set_cookie('authJWT', 'ey2808')
         response.set_header('Authorization', 'Bearer 28082044d2')
 
-        self.assertEqual(response.cookies, {'authJWT', 'ey2808'}, msg='Expected cookies not equal')
+        self.assertEqual(response.cookies, {'authJWT': 'ey2808'}, msg='Expected cookies not equal')
 
     def test_make_response(self):
         expected_message = 'HTTP/1.1 200\n' \
