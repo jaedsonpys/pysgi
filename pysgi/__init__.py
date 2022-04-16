@@ -22,6 +22,6 @@ Access our official repository and get more information.
 """
 
 from .wsgi import PySGI
-from .response import make_response
+from .response import Response
 
 __version__ = '1.0.0'
