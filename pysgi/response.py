@@ -1,7 +1,4 @@
 from typing import Union
-import json
-from winreg import REG_NOTIFY_CHANGE_SECURITY
-
 
 SERVER_NAME = 'PySGI'
 
@@ -32,5 +29,3 @@ class Response(object):
     def set_header(self, name: str, value: str) -> None:
         """Set a header"""
         self.headers[name] = value
-    
-    def get_status(self) -> int: return self.status
