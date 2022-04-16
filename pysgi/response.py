@@ -23,3 +23,11 @@ class Response(object):
 
         self._cookies: dict = {}
         self._headers: dict = {}
+
+    def set_cookie(self, name: str, value: str) -> None:
+        """Set a cookie"""
+        self._cookies[name] = value
+
+    def set_header(self, name: str, value: str) -> None:
+        """Set a header"""
+        self._headers[name] = value
