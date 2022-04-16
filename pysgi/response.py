@@ -39,6 +39,10 @@ class Response(object):
         """Set a header"""
         self.headers[name] = value
 
+    def __repr__(self) -> str:
+        return f'Response(body={self.body}, status={self.status}, content_type={self.content_type}, '\
+               f'cookies={self.cookies}, headers={self.headers})'
+
 
 def make_response(response_obj: Response) -> str:
     """Create an HTTP message from the
