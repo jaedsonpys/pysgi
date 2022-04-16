@@ -75,3 +75,15 @@ def make_response(response_obj: Response) -> str:
 
     http_message = '\n'.join(http)
     return http_message
+
+
+if __name__ == '__main__':
+    response = Response({'status', 'Account created'}, status=201, content_type='application/json')
+
+    response.set_header('Access-Control', '*')
+    response.set_cookie('JWTAuth', 'ey28428377')
+    response.set_cookie('sessionId', '34349302')
+
+    http = make_response(response)
+
+    print(http)
