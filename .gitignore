@@ -4,3 +4,4 @@ local_tests
 dist
 *.egg-info
 build
+init.py
