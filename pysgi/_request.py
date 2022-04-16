@@ -45,14 +45,14 @@ class Request(object):
 
         if request.is_valid() is False:
             # returning status 400 for invalid requests
-            response = make_response('Bad Request', 400)
+            response = Response('Bad Request', 400)
             return self._send_response(client, response)
 
         route_info = self._routes.get(request.path)
 
         # if the route is not found
         if route_info is None:
-            response = make_response('Not Found', status=404)
+            response = Response('Not Found', status=404)
         else:
             request_method = request.method
 
@@ -70,20 +70,21 @@ class Request(object):
                     # getting body and status of response 
                     # in use cases of: return "Hello", 200.
                     body, status = function_response
-                    response = make_response(body, status=status)
+                    response = Response(body, status=status)
                 elif isinstance(function_response, str):
-                    response = make_response(function_response)
+                    response = Response(function_response)
                 elif isinstance(function_response, Response):
                     response = function_response
             else:
-                response = make_response('Method Not Allowed', status=405)
+                response = Response('Method Not Allowed', status=405)
 
         self._send_response(client, response)
         print_response(response.status, request.path, request.method, client.host)
 
     @staticmethod
     def _send_response(client: Client, response: Response) -> None:
-        client.csocket.send(response.get_http_message().encode())
+        http_response = make_response(response)
+        client.csocket.send(http_response.encode())
         client.csocket.close()
 
 
