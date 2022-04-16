@@ -98,13 +98,25 @@ class ClientRequest(object):
     def is_valid(self) -> bool:
         return self.path is not None    
 
+    def _parse_args(self, query_string: str):
+        args_list = query_string.split('&')
+        args = {}
+
+        for a in args_list:
+            name, value = a.split('=')
+            args[name] = value
+
+        return args
+
     def parser_http(self, http_message: str) -> None:
         parser = HttpParser()
         parser.execute(http_message, len(http_message))
 
         self.path = parser.get_path()
-        self.args = parser.get_query_string()
         self.method = parser.get_method()
+
+        args = self._parse_args(parser.get_query_string())
+        self.args = args
 
         if parser.is_headers_complete():
             self.headers = parser.get_headers()
