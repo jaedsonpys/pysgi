@@ -5,10 +5,8 @@ SERVER_NAME = 'PySGI'
 
 
 class Response(object):
-    """This class stores information from
-    the response created by the function
-    responsible for a route.
-    """
+    """This class stores information from your response.
+    Use to create more complex responses"""
 
     def __init__(
         self,
@@ -16,6 +14,16 @@ class Response(object):
         status: int = 200,
         content_type: str = 'text/html',
     ) -> None:
+        """Create a response.
+
+        :param body: Body.
+        :type body: Union[str, dict, list]
+        :param status: HTTP status code, defaults to 200
+        :type status: int, optional
+        :param content_type: Response content type, defaults to 'text/html'
+        :type content_type: str, optional
+        """
+
         self.body: Union[str, dict, list] = body
         self.status: int = status
         self.content_type: str = content_type
@@ -33,6 +41,16 @@ class Response(object):
 
 
 def make_response(response_obj: Response) -> str:
+    """Create an HTTP message from the
+    Response object.
+
+    :param response_obj: Response object.
+    :type response_obj: Response
+    :raises TypeError: If the body's data type is not "str", "dict" or "list".
+    :return: Returns the HTTP message
+    :rtype: str
+    """
+
     http = list()
     http.append(f'HTTP/1.1 {response_obj.status}')
 
