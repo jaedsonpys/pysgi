@@ -6,6 +6,11 @@ SERVER_NAME = 'PySGI'
 
 
 class Response(object):
+    """This class stores information from
+    the response created by the function
+    responsible for a route.
+    """
+
     body: str
     status: int
     headers: dict = {}
@@ -13,24 +18,65 @@ class Response(object):
     _http_message: str
 
     def set_header(self, key: str, value: str) -> None:
+        """Set a header.
+
+        :param key: Header name
+        :type key: str
+        :param value: Header value
+        :type value: str
+        """
+
         self.headers[key] = value
 
     def set_cookie(self, key: str, value: str) -> None:
+        """Set a cookie.
+
+        :param key: Cookie name
+        :type key: str
+        :param value: Cookie value
+        :type value: str
+        """
+
         self.cookies[key] = value
     
     def set_status(self, status: int) -> None:
+        """Set response status.
+
+        :param status: HTTP Status code.
+        :type status: int
+        :raises TypeError: If "status" argument is not of type "int".
+        """
+
         if isinstance(status, int):
             self.status = status
         else:
             raise TypeError(f'The "status" argument must be of type integer, not {type(status)}')
 
     def set_body(self, body: str) -> None:
+        """Set a body.
+
+        :param body: Body
+        :type body: str
+        """
+
         self.body = body
 
     def set_http_message(self, http_message: str) -> None:
+        """Defines the HTTP message.
+
+        :param http_message: HTTP message
+        :type http_message: str
+        """
+
         self._http_message = http_message
 
     def get_http_message(self) -> str:
+        """Get the HTTP message.
+
+        :return: Return HTTP message.
+        :rtype: str
+        """
+
         return self._http_message
 
 
