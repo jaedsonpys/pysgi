@@ -92,8 +92,8 @@ class ClientRequest(object):
     body: Any
     method: str
     path: str
-    headers: dict
-    args: dict
+    headers: dict = {}
+    args: dict = {}
 
     def is_valid(self) -> bool:
         return self.path is not None    
@@ -115,8 +115,11 @@ class ClientRequest(object):
         self.path = parser.get_path()
         self.method = parser.get_method()
 
-        args = self._parse_args(parser.get_query_string())
-        self.args = args
+        query_string = parser.get_query_string()
+
+        if query_string:
+            args = self._parse_args(query_string)
+            self.args = args
 
         if parser.is_headers_complete():
             self.headers = parser.get_headers()
