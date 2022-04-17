@@ -1,1 +1,5 @@
 theme: jekyll-theme-minimal
+title: PySGI Use
+logo: /assets/img/logo.png
+description: See examples of using PySGI
+show_downloads: true
