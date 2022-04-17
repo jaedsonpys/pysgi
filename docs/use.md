@@ -1,7 +1,5 @@
 # How to use
 
-![PySGI logo](https://github.com/jaedsonpys/pysgi/blob/master/docs/logo.png)
-
 This is the official documentation for using the `PySGI` library, here you will have the **first steps** to create a server using our library.
 
 - PySGI *1.1.0* Docs
