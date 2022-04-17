@@ -53,3 +53,10 @@ if __name__ == '__main__':
 > You can find this usage example in `./examples/simple_server.py`
 
 When creating a route, you can define the methods that are accepted by the route, being able to know which method was requested by the **request object**, which is passed as an argument to the function that was called (in this case, the `index()`)
+
+# Documentation
+
+Access the full documentation in HTML or markdown:
+
+- [HTML PySGI Docs](https://jaedsonpys.github.io/pysgi/html/use)
+- [Markdown PySGI Docs](https://github.com/jaedsonpys/pysgi/blob/master/docs/use.md)
