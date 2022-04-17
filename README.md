@@ -58,4 +58,4 @@ When creating a route, you can define the methods that are accepted by the route
 
 Access the full documentation in HTML or markdown:
 
-- [PySGI use docs](https://github.com/jaedsonpys/pysgi/blob/master/docs/use.md)
+- [PySGI use docs](https://jaedsonpys.github.io/pysgi/use)
