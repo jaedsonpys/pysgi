@@ -8,6 +8,11 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 - Can get parameters from URL;
 - Get values ​​from a dynamic route.
 
+## Links
+
+- [PyPI Project](https://pypi.org/project/PySGI)
+- [PySGI Docs](https://jaedsonpys.github.io/pysgi/use)
+
 ## Initializing
 
 The PySGI library is available for installation on PyPI. Use this command to install the latest version:
