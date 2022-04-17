@@ -1,6 +1,6 @@
 # PySGI Library - Fast and simple ⚡️
 
-![PySGI logo](https://github.com/jaedsonpys/pysgi/blob/master/docs/logo.png)
+![PySGI logo](https://github.com/jaedsonpys/pysgi/blob/master/docs/assets/img/logo.png)
 
 PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, giving access to various features, such as:
 
