@@ -6,10 +6,11 @@ from ._sockethandler import SocketHandler
 from .route import Route
 
 _server = SocketHandler()
-routes = {}
 
 
 class PySGI(object):
+    routes = {}
+
     def route(self, path: str, methods: list = ['GET']) -> FunctionType:
         """Adds a new route to the application.
 
@@ -36,7 +37,7 @@ class PySGI(object):
 
         def _decorator_func(function: FunctionType):
             route.function = function
-            routes[path] = route
+            self.routes[path] = route
             return function
 
         return _decorator_func
@@ -56,7 +57,7 @@ class PySGI(object):
         """
 
         address = _server.create_socket(host=host, port=port)
-        request = Request(routes)
+        request = Request(self.routes)
 
         print_start(*address)
 
