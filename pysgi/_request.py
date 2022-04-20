@@ -80,7 +80,9 @@ class Request(object):
                 response = Response('Method Not Allowed', status=405)
 
         self._send_response(client, response)
-        print_response(response.status, request.path, request.method, client.host)
+
+        path = f'{request.path}{"?" if request.query_string else ""}{request.query_string}'
+        print_response(response.status, path, request.method, client.host)
 
     @staticmethod
     def _send_response(client: Client, response: Response) -> None:
@@ -117,10 +119,10 @@ class ClientRequest(object):
         self.path = parser.get_path()
         self.method = parser.get_method()
 
-        query_string = parser.get_query_string()
+        self.query_string = parser.get_query_string()
 
-        if query_string:
-            args = self._parse_args(query_string)
+        if self.query_string:
+            args = self._parse_args(self.query_string)
             self.args = args
 
         if parser.is_headers_complete():
