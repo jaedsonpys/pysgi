@@ -63,9 +63,9 @@ class Request(object):
                 route_function: FunctionType = route_info.function
 
                 try:
-                    function_response = route_function.__call__()
-                except TypeError:
                     function_response = route_function.__call__(request)
+                except TypeError:
+                    function_response = route_function.__call__()
 
                 if isinstance(function_response, tuple):
                     # getting body and status of response 
