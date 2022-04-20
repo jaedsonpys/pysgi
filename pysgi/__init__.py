@@ -23,5 +23,6 @@ Access our official repository and get more information.
 
 from .wsgi import PySGI
 from .response import Response
+from .plugins import *
 
 __version__ = '1.0.0'
