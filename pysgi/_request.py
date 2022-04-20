@@ -48,6 +48,7 @@ class Request(object):
             response = Response('Bad Request', 400)
             return self._send_response(client, response)
 
+        request.host = client.host
         route_info = self._routes.get(request.path)
 
         # if the route is not found
@@ -94,6 +95,7 @@ class ClientRequest(object):
     path: str
     headers: dict = {}
     args: dict = {}
+    host: str
 
     def is_valid(self) -> bool:
         return self.path is not None    
@@ -129,4 +131,4 @@ class ClientRequest(object):
 
     def __repr__(self) -> str:
         return f'ClientRequest(path={self.path}, method={self.method},' \
-               f'headers={self.headers}, args={self.args}, body={self.body})'
+               f'headers={self.headers}, args={self.args}, body={self.body}, host={self.host})'
