@@ -42,12 +42,12 @@ class PySGI(object):
         if '<' in path and '>' in path:
             self._register_dynamic_route(route, path)
 
-        def _decorator_func(function: FunctionType):
+        def wrapper(function: FunctionType):
             route.function = function
             self.routes[path] = route
             return function
 
-        return _decorator_func
+        return wrapper
 
     def _register_dynamic_route(self, route: Route, path: str) -> None:
         split_path = path.split('/')
