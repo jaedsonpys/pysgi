@@ -43,7 +43,6 @@ class PySGI(object):
             self.routes[path] = route
             return function
 
-        print(route)
         return _decorator_func
 
     def _register_dynamic_route(self, route: Route, path: str) -> None:
@@ -57,7 +56,7 @@ class PySGI(object):
                 i = i.replace('<', '')
                 i = i.replace('>', '')
                 i = i.replace(' ', '')
-                
+
                 parameter = i.split(':')
 
                 if len(parameter) == 2:
