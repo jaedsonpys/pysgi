@@ -35,12 +35,43 @@ class PySGI(object):
         route.path = path
         route.allowed_methods = methods
 
+        if '<' in path and '>' in path:
+            self._register_dynamic_route(route, path)
+
         def _decorator_func(function: FunctionType):
             route.function = function
             self.routes[path] = route
             return function
 
+        print(route)
         return _decorator_func
+
+    def _register_dynamic_route(self, route: Route, path: str) -> None:
+        split_path = path.split('/')
+
+        parameters = []
+        no_parameters = []
+
+        for index, i in enumerate(split_path):
+            if i.startswith('<') and i.endswith('>'):
+                i = i.replace('<', '')
+                i = i.replace('>', '')
+                i = i.replace(' ', '')
+                
+                parameter = i.split(':')
+
+                if len(parameter) == 2:
+                    var_type, name = parameter
+                else:
+                    var_type = 'any'
+                    name = i
+
+                parameters.append({'index': index, 'var_type': var_type, 'name': name})
+            else:
+                no_parameters.append(i)
+
+        # register registering dynamic route variables
+        route.parameters = parameters
 
     def run(self, host: str = None, port: str = None) -> None:
         """Starts the server on the specified host
