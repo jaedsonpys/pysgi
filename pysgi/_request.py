@@ -5,6 +5,7 @@ from socket import timeout as sock_timeout
 from threading import Thread
 from types import FunctionType
 from typing import Any
+from urllib.parse import unquote
 
 from http_parser.pyparser import HttpParser
 
@@ -116,7 +117,9 @@ class ClientRequest(object):
         parser = HttpParser()
         parser.execute(http_message, len(http_message))
 
-        self.path = parser.get_path()
+        path = parser.get_path()
+
+        self.path = path if not path else unquote(path)
         self.method = parser.get_method()
 
         self.query_string = parser.get_query_string()
