@@ -5,6 +5,7 @@ class Route(object):
     function: FunctionType = None
     allowed_methods: list = []
     parameters: list = []
+    no_parameters: list = []
     path: str = None
 
     def __repr__(self) -> str:
