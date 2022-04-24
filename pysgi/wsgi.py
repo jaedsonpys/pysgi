@@ -71,10 +71,11 @@ class PySGI(object):
 
                 parameters.append({'index': index, 'var_type': var_type, 'name': name})
             else:
-                no_parameters.append(i)
+                no_parameters.append({'index': index, 'name': i})
 
         # register registering dynamic route variables
         route.parameters = parameters
+        route.no_parameters = no_parameters
 
     def run(self, host: str = None, port: str = None) -> None:
         """Starts the server on the specified host
