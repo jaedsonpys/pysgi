@@ -51,6 +51,9 @@ class PySGI(object):
 
     def _register_dynamic_route(self, route: Route, path: str) -> None:
         split_path = path.split('/')
+        
+        while '' in split_path:
+            split_path.remove('')
 
         parameters = []
         no_parameters = []
