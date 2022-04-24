@@ -1,6 +1,7 @@
 # this file has all the code that handles
 # requests coming from a client.
 
+from typing import Union
 from socket import timeout as sock_timeout
 from threading import Thread
 from types import FunctionType
@@ -23,6 +24,41 @@ class Request(object):
         # create a thread to handle request
         ct = Thread(target=self._handle_request, args=(client,))
         ct.start()
+
+    def get_dynamic_parameters(self, path: str) -> Union[Route, dict]:
+        route_info: Route = None
+        path_split = path.split('/')
+
+        result = {}
+        
+        while '' in path_split:
+            path_split.remove('')
+
+        for r in self._routes.values():
+            if r.parameters and r.no_parameters:
+                if len(path_split) == (len(r.parameters) + len(r.no_parameters)):
+                    route_info = r
+                    route_parameters = r.parameters
+
+                    for d in route_parameters:
+                        index = d['index']
+                        var_type = d['var_type']
+                        name = d['name']
+
+                        variable = path_split[index]
+                        
+                        if var_type == 'str':
+                            variable = str(variable)
+                        elif var_type == 'int':
+                            variable = int(variable)
+                        elif var_type == 'float':
+                            variable = float(variable)
+
+                        result[name] = variable
+            elif r.path == path:
+                return r, result
+
+        return route_info, result
 
     def _handle_request(self, client: Client) -> None:
         client.csocket.settimeout(2.5)
@@ -50,7 +86,8 @@ class Request(object):
             return self._send_response(client, response)
 
         request.host = client.host
-        route_info = self._routes.get(request.path)
+        route_info, parameters = self.get_dynamic_parameters(request.path)
+        request.parameters = parameters
 
         # if the route is not found
         if route_info is None:
@@ -98,6 +135,7 @@ class ClientRequest(object):
     path: str
     headers: dict = {}
     args: dict = {}
+    parameters: dict = {}
     host: str
 
     def is_valid(self) -> bool:
