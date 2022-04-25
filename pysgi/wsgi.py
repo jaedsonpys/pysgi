@@ -6,7 +6,7 @@ from ._sockethandler import SocketHandler
 from .route import Route
 
 _server = SocketHandler()
-ACCEPTED_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'PATH']
+ACCEPTED_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH']
 
 
 class PySGI(object):
