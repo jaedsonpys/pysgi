@@ -93,7 +93,7 @@ class PySGI(object):
         """
 
         address = _server.create_socket(host=host, port=port)
-        request = Request(self.routes)
+        request = Request(self.routes.copy())
 
         print_start(*address)
 
