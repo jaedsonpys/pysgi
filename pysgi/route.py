@@ -2,12 +2,13 @@ from types import FunctionType
 
 
 class Route(object):
-    function: FunctionType = None
-    allowed_methods: list = []
-    parameters: list = []
-    no_parameters: list = []
-    path: str = None
+    def __init__(self) -> None:
+        self.function: FunctionType = None
+        self.allowed_methods: list = []
+        self.parameters: list = []
+        self.no_parameters: list = []
+        self.path: str = None
 
     def __repr__(self) -> str:
         return f'Route(function={self.function}, allowed_methods={self.allowed_methods}, ' \
-               f'path={self.path}, dynamics={self.dynamics})'
+               f'path={self.path}, parameters={self.parameters}, no_parameters={self.no_parameters})'
