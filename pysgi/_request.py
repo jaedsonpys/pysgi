@@ -25,22 +25,30 @@ class Request(object):
         ct = Thread(target=self._handle_request, args=(client,))
         ct.start()
 
-    def get_dynamic_parameters(self, path: str) -> Union[Route, dict]:
-        route_info: Route = None
+    def get_route(self, path: str) -> Union[Route, dict]:
         path_split = path.split('/')
-
         result = {}
         
         while '' in path_split:
             path_split.remove('')
 
         for r in self._routes.values():
-            if r.parameters and r.no_parameters:
-                if len(path_split) == (len(r.parameters) + len(r.no_parameters)):
-                    route_info = r
-                    route_parameters = r.parameters
+            route_find = False
 
-                    for d in route_parameters:
+            if r.path == path:
+                return r, result
+            elif len(path_split) == (len(r.parameters) + len(r.no_parameters)):
+                # checking if routes that are not parameters are available
+                for a in r.no_parameters:
+                    if path_split[a['index']] == a['name']:
+                        route_find = True
+                    else:
+                        route_find = False
+                        break
+
+                # if the route was found get its arguments
+                if route_find:
+                    for d in r.parameters:
                         index = d['index']
                         var_type = d['var_type']
                         name = d['name']
@@ -55,10 +63,12 @@ class Request(object):
                             variable = float(variable)
 
                         result[name] = variable
-            elif r.path == path:
-                return r, result
 
-        return route_info, result
+                    return r, result
+
+        # if the code got here it means no
+        # dynamic route or default route found
+        return None, {}
 
     def _handle_request(self, client: Client) -> None:
         client.csocket.settimeout(2.5)
@@ -86,11 +96,11 @@ class Request(object):
             return self._send_response(client, response)
 
         request.host = client.host
-        route_info, parameters = self.get_dynamic_parameters(request.path)
+        route_info, parameters = self.get_route(request.path)
         request.parameters = parameters
 
         # if the route is not found
-        if route_info is None:
+        if not route_info:
             response = Response('Not Found', status=404)
         else:
             request_method = request.method
@@ -130,13 +140,14 @@ class Request(object):
 
 
 class ClientRequest(object):
-    body: Any
-    method: str
-    path: str
-    headers: dict = {}
-    args: dict = {}
-    parameters: dict = {}
-    host: str
+    def __init__(self) -> None:
+        self.body: Any = None
+        self.method: str = None
+        self.path: str = None
+        self.headers: dict = {}
+        self.args: dict = {}
+        self.parameters: dict = {}
+        self.host: str = None
 
     def is_valid(self) -> bool:
         return self.path is not None    
