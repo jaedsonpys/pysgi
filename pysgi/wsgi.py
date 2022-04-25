@@ -32,28 +32,26 @@ class PySGI(object):
         if not isinstance(methods, list):
             raise TypeError(f'A named list of methods is required, not {type(methods)}')
 
-        route = Route()
-        route.path = path
+        _route = Route()
+        _route.path = path
         
         for m in methods:
             if m.upper() in ACCEPTED_METHODS:
-                route.allowed_methods.append(m)
+                _route.allowed_methods.append(m)
 
         if '<' in path and '>' in path:
-            self._register_dynamic_route(route, path)
+            self._register_dynamic_route(_route, path)
 
         def wrapper(function: FunctionType):
-            route.function = function
-            self.routes[path] = route
+            _route.function = function
+            self.routes[path] = _route
             return function
 
         return wrapper
 
-    def _register_dynamic_route(self, route: Route, path: str) -> None:
+    def _register_dynamic_route(self, _route: Route, path: str) -> None:
         split_path = path.split('/')
-        
-        while '' in split_path:
-            split_path.remove('')
+        split_path.remove('')
 
         parameters = []
         no_parameters = []
@@ -77,8 +75,8 @@ class PySGI(object):
                 no_parameters.append({'index': index, 'name': i})
 
         # register registering dynamic route variables
-        route.parameters = parameters
-        route.no_parameters = no_parameters
+        _route.parameters = parameters
+        _route.no_parameters = no_parameters
 
     def run(self, host: str = None, port: str = None) -> None:
         """Starts the server on the specified host
