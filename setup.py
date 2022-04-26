@@ -1,9 +1,14 @@
 from setuptools import setup
 
+with open('DESCRIPTION.md', 'r') as reader:
+    description = reader.read()
+
 setup(
     name='PySGI',
     version='1.2.0',
     description='The easy server library for everyone.',
+    long_description=description,
+    long_description_content_type='text/markdown',
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     packages=['pysgi'],
