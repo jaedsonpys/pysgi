@@ -20,19 +20,15 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 The PySGI library is available for installation on PyPI. Use this command to install the latest version:
 
 ```
-pip3 install PySGI 
+pip install PySGI 
 ```
 
 If you prefer, you can install manually by cloning the repository and running the following commands:
 
 ```
 git clone git@github.com:jaedsonpys/pysgi.git
-```
-```
 python3 setup.py sdist
-```
-```
-pip3 install dist/PySGI-{last version}.tar.gz
+pip install dist/PySGI-{last version}.tar.gz
 ```
 
 Remember to replace "{last version}" with the current version of the project.
