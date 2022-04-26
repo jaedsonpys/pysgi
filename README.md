@@ -13,7 +13,7 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 ## Links
 
 - [PyPI Project](https://pypi.org/project/PySGI)
-- [PySGI Docs](https://jaedsonpys.github.io/pysgi/use)
+- [PySGI Docs](https://jaedsonpys.github.io/pysgi)
 
 ## Initializing
 
