@@ -49,3 +49,12 @@
 - [`7c7d6a1`](https://github.com/jaedsonpys/pysgi/commit/7c7d6a1ccfffc11eb4e14ab24480dc3b056c9479) Displaying query string in request log.
 - [`ef2d24b`](https://github.com/jaedsonpys/pysgi/commit/ef2d24ba990dc486ee97891e2ea998922697ed50) Decoding the route path;
 - [`8652aeb`](https://github.com/jaedsonpys/pysgi/commit/8652aeb37d4699fce95852128bf0db9e14b6cf29) Fixed data duplication errors.
+
+## **1.2.1**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.1)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.1/)
+
+### Fix
+
+- [`3c1cad2`](https://github.com/jaedsonpys/pysgi/commit/3c1cad227e1015993f3e5b2568cd137543c767ad) Creating MANIFEST.in to include DESCRIPTION.md file;
