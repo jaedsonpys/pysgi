@@ -8,12 +8,14 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 - Get or set all cookies coming from the browser;
 - Add or get the body of an HTTP response or request;
 - Can get parameters from URL;
-- Get values ​​from a dynamic route.
+- Get values ​​from a dynamic route;
+- Returning JSON and other data types.
 
 ## Links
 
 - [PyPI Project](https://pypi.org/project/PySGI)
 - [PySGI Docs](https://jaedsonpys.github.io/pysgi)
+- [Use examples](https://github.com/jaedsonpys/pysgi/tree/master/examples)
 
 ## Initializing
 
