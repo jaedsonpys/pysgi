@@ -29,7 +29,7 @@ class Client(object):
         self.port = port
 
     def __repr__(self) -> str:
-        return f'ClientSocket(socket={self.csocket}, address=({self.host, self.port}))'
+        return f'Client(csocket={self.csocket}, host={self.host}, port={self.port})'
 
 
 class SocketHandler(object):
