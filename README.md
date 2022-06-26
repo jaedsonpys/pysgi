@@ -27,11 +27,9 @@ If you prefer, you can install manually by cloning the repository and running th
 
 ```
 git clone git@github.com:jaedsonpys/pysgi.git
-python3 setup.py sdist
-pip install dist/PySGI-{last version}.tar.gz
+cd pysgi/
+python3 setup.py install
 ```
-
-Remember to replace "{last version}" with the current version of the project.
 
 ## Example of use
 
