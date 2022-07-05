@@ -23,7 +23,6 @@ class Client(object):
         self.csocket = _socket
         self.host = host
         self.port = port
-        self.LISTEN_MAX = 128
 
     def __repr__(self) -> str:
         return f'Client(csocket={self.csocket}, host={self.host}, port={self.port})'
@@ -31,6 +30,7 @@ class Client(object):
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
         self._socket: socket.socket
+        self._listen_max = 128
 
         self._host = '127.0.0.1'
         self._port = 5500
@@ -52,7 +52,7 @@ class SocketHandler(object):
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         self._socket.bind(address)
-        self._socket.listen(self.LISTEN_MAX)
+        self._socket.listen(self._listen_max)
 
         return address
 
