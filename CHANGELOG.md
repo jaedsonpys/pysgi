@@ -58,3 +58,14 @@
 ### Fix
 
 - [`3c1cad2`](https://github.com/jaedsonpys/pysgi/commit/3c1cad227e1015993f3e5b2568cd137543c767ad) Creating MANIFEST.in to include DESCRIPTION.md file;
+
+## **1.2.2**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.2)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.2/)
+
+### Fix
+
+- [`cf042a0`](https://github.com/jaedsonpys/pysgi/commit/cf042a0): Improving condition structure in _request.py;
+- [`4e9bf1c`](https://github.com/jaedsonpys/pysgi/commit/4e9bf1c): Renaming "wrapper" function to "decorator";
+- [`5e5241c`](https://github.com/jaedsonpys/pysgi/commit/5e5241c): Using parentheses to format the return string from ClientRequest's `repr` method.
