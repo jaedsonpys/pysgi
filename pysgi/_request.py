@@ -103,11 +103,9 @@ class Request(object):
         if not route_info:
             response = Response('Not Found', status=404)
         else:
-            request_method = request.method
-
-            # if the request method is accepted, the
-            # request is handled
-            if request_method in route_info.allowed_methods:
+            if request.method not in route_info.allowed_methods:
+                response = Response('Method Not Allowed', status=405)
+            else:
                 route_function: FunctionType = route_info.function
 
                 try:
@@ -124,8 +122,6 @@ class Request(object):
                     response = Response(function_response)
                 elif isinstance(function_response, Response):
                     response = function_response
-            else:
-                response = Response('Method Not Allowed', status=405)
 
         self._send_response(client, response)
 
