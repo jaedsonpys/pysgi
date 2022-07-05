@@ -1,11 +1,7 @@
 # the "_sockethandler" file is responsible for
 # handling the TCP connections from the socket.
 
-import socket
-import os
-
-LISTEN_MAX = 128
-
+import socket, os
 
 class Client(object):
     """The Client class is used to store
@@ -27,10 +23,10 @@ class Client(object):
         self.csocket = _socket
         self.host = host
         self.port = port
+        self.LISTEN_MAX = 128
 
     def __repr__(self) -> str:
         return f'Client(csocket={self.csocket}, host={self.host}, port={self.port})'
-
 
 class SocketHandler(object):
     def __init__(self, use_environ: bool = False) -> None:
@@ -49,22 +45,20 @@ class SocketHandler(object):
     def create_socket(self, host: str = None, port: int = None) -> tuple:
         _host = host if host else self._host
         _port = port if port else self._port
-
+        
         address = (_host, _port)
 
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         self._socket.bind(address)
-        self._socket.listen(LISTEN_MAX)
+        self._socket.listen(self.LISTEN_MAX)
 
         return address
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
-
-        _host = addr[0]
-        _port = addr[1]
+        _host, _port = addr[0], addr[1]
 
         client = Client(client_socket, _host, _port)
         return client
