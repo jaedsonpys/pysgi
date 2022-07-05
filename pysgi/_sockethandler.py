@@ -69,13 +69,3 @@ class SocketHandler(object):
     def close_server(self) -> None:
         self._socket.shutdown(socket.SHUT_RDWR)
         self._socket.close()
-
-
-if __name__ == '__main__':
-    server = SocketHandler()
-    server.create_socket()
-
-    client = server.wait_connection()
-    print(f'client {client.host} connected')
-
-    client.csocket.send(b'HTTP/1.1 200 OK\n\nHello!')
