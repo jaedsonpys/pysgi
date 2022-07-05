@@ -180,5 +180,5 @@ class ClientRequest(object):
             self.body = parser.recv_body()
 
     def __repr__(self) -> str:
-        return f'ClientRequest(path={self.path}, method={self.method},' \
-               f'headers={self.headers}, args={self.args}, body={self.body}, host={self.host})'
+        return (f'ClientRequest(path={self.path}, method={self.method},'
+                f'headers={self.headers}, args={self.args}, body={self.body}, host={self.host})')
