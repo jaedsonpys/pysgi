@@ -11,11 +11,13 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 - Get values ​​from a dynamic route;
 - Returning JSON and other data types.
 
+You can learn how to use `PySGI` in the project's [official documentation](https://jaedsonpys.github.io/pysgi/). See [CHANGELOG.md](https://github.com/jaedsonpys/pysgi/blob/master/CHANGELOG.md) on GitHub for changes made to each release.
+
 ## Links
 
 - [PyPI Project](https://pypi.org/project/PySGI)
-- [PySGI Docs](https://jaedsonpys.github.io/pysgi)
-- [Use examples](https://github.com/jaedsonpys/pysgi/tree/master/examples)
+- [PySGI Documentation](https://jaedsonpys.github.io/pysgi)
+- [Examples of use](https://github.com/jaedsonpys/pysgi/tree/master/examples)
 
 ## Initializing
 
@@ -53,12 +55,13 @@ if __name__ == '__main__':
 
 ```
 
-> You can find this usage example in `./examples/simple_server.py`
+You can find this usage example in [examples/simple_server.py](https://github.com/jaedsonpys/pysgi/blob/master/examples/simple_server.py)
 
-When creating a route, you can define the methods that are accepted by the route, being able to know which method was requested by the **request object**, which is passed as an argument to the function that was called (in this case, the `index()`)
+# License
 
-# Documentation
+```text
+MIT License
+Copyright (c) 2022 Jaedson Silva
+```
 
-Access the full documentation:
-
-- [PySGI use docs](https://jaedsonpys.github.io/pysgi/use)
+See [LICENSE](https://github.com/jaedsonpys/pysgi/blob/master/LICENSE) file to learn more about the license.
