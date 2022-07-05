@@ -1,5 +1,10 @@
 from datetime import datetime
 
+
+def print_start(host: str, port: int) -> str:
+    print(f'\033[1m@PySGI Server\033[m')
+    print(f'\033[4;47;35mRunning in http://{host}:{port}\033[m\n')
+
 def print_response(status: int, path: str, method: str, host: str) -> str:
     time = datetime.now()
     statusCode = {
