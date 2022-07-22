@@ -43,7 +43,7 @@ class PySGI(object):
             self._register_dynamic_route(_route, path)
 
         def decorator(func):
-            _route.function = function
+            _route.function = func
             self.routes[path] = _route
             return func
 
