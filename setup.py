@@ -13,9 +13,10 @@ setup(
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     packages=['pysgi'],
-    install_requires=['http-parser'],
+    install_requires=['http-pyparser==0.2.2'],
     license='MIT License',
     python_requires='>= 3.6',
+    url='https://github.com/jaedsonpys/pysgi',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python',
@@ -26,7 +27,6 @@ setup(
         'Topic :: Software Development :: Libraries :: Application Frameworks'
     ],
     project_urls={
-        'Source code': 'https://github.com/jaedsonpys/pysgi',
         'License': 'https://github.com/jaedsonpys/pysgi/blob/master/LICENSE'
     },
     keywords=['server', 'http', 'internet', 'www', 'framework']
