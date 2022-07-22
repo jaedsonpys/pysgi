@@ -69,3 +69,12 @@
 - [`cf042a0`](https://github.com/jaedsonpys/pysgi/commit/cf042a0): Improving condition structure in _request.py;
 - [`4e9bf1c`](https://github.com/jaedsonpys/pysgi/commit/4e9bf1c): Renaming "wrapper" function to "decorator";
 - [`5e5241c`](https://github.com/jaedsonpys/pysgi/commit/5e5241c): Using parentheses to format the return string from ClientRequest's `repr` method.
+
+## **1.2.3**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.3)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.3/)
+
+### Fix
+
+- [`80d77e0`](https://github.com/jaedsonpys/pysgi/commit/80d77e0): Fix argument name in decorator.
