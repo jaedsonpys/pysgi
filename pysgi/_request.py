@@ -8,7 +8,7 @@ from types import FunctionType
 from typing import Any
 from urllib.parse import unquote
 
-from http_parser.pyparser import HttpParser
+from http_pyparser import HTTPParser, HTTPData
 
 from ._sockethandler import Client
 from .response import Response, make_response
@@ -87,15 +87,14 @@ class Request(object):
         else:
             client.csocket.settimeout(None)
             
-        request = ClientRequest()
-        request.parser_http(client_msg)
+        parser = HTTPParser()
+        request = parser.parser(client_msg.decode())
 
-        if request.is_valid() is False:
-            # returning status 400 for invalid requests
-            response = Response('Bad Request', 400)
-            return self._send_response(client, response)
+        # if request.is_valid() is False:
+        #     # returning status 400 for invalid requests
+        #     response = Response('Bad Request', 400)
+        #     return self._send_response(client, response)
 
-        request.host = client.host
         route_info, parameters = self.get_route(request.path)
         request.parameters = parameters
 
@@ -124,61 +123,10 @@ class Request(object):
                     response = function_response
 
         self._send_response(client, response)
-
-        path = f'{request.path}{"?" if request.query_string else ""}{request.query_string}'
-        print_response(response.status, path, request.method, client.host)
+        print_response(response.status, request.path, request.method, client.host)
 
     @staticmethod
     def _send_response(client: Client, response: Response) -> None:
         http_response = make_response(response)
         client.csocket.send(http_response.encode())
         client.csocket.close()
-
-
-class ClientRequest(object):
-    def __init__(self) -> None:
-        self.body: Any = None
-        self.method: str = None
-        self.path: str = None
-        self.headers: dict = {}
-        self.args: dict = {}
-        self.parameters: dict = {}
-        self.host: str = None
-
-    def is_valid(self) -> bool:
-        return self.path is not None    
-
-    def _parse_args(self, query_string: str):
-        args_list = query_string.split('&')
-        args = {}
-
-        for a in args_list:
-            name, value = a.split('=')
-            args[name] = value
-
-        return args
-
-    def parser_http(self, http_message: str) -> None:
-        parser = HttpParser()
-        parser.execute(http_message, len(http_message))
-
-        path = parser.get_path()
-
-        self.path = path if not path else unquote(path)
-        self.method = parser.get_method()
-
-        self.query_string = parser.get_query_string()
-
-        if self.query_string:
-            args = self._parse_args(self.query_string)
-            self.args = args
-
-        if parser.is_headers_complete():
-            self.headers = parser.get_headers()
-
-        if parser.is_partial_body():
-            self.body = parser.recv_body()
-
-    def __repr__(self) -> str:
-        return (f'ClientRequest(path={self.path}, method={self.method},'
-                f'headers={self.headers}, args={self.args}, body={self.body}, host={self.host})')

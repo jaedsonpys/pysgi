@@ -1,4 +1,8 @@
 import unittest
+import sys
+
+sys.path.insert(0, './')
+
 from pysgi import Response
 from pysgi.response import make_response
 
