@@ -78,3 +78,12 @@
 ### Fix
 
 - [`80d77e0`](https://github.com/jaedsonpys/pysgi/commit/80d77e0): Fix argument name in decorator.
+
+## **1.2.4**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.4)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.4/)
+
+### Fix
+
+- [`5fa8b6a`](https://github.com/jaedsonpys/pysgi/commit/5fa8b6a): Using **HTTPPyParser** to get request data.
