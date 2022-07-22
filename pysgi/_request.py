@@ -5,10 +5,8 @@ from typing import Union
 from socket import timeout as sock_timeout
 from threading import Thread
 from types import FunctionType
-from typing import Any
-from urllib.parse import unquote
 
-from http_pyparser import HTTPParser, HTTPData
+from http_pyparser import HTTPParser
 
 from ._sockethandler import Client
 from .response import Response, make_response
