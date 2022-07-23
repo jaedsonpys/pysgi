@@ -121,7 +121,7 @@ class Request(object):
                     response = function_response
 
         self._send_response(client, response)
-        print_response(response.status, request.path, request.method, client.host)
+        print_response(response.status, request.real_path, request.method, client.host)
 
     @staticmethod
     def _send_response(client: Client, response: Response) -> None:
