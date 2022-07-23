@@ -87,3 +87,13 @@
 ### Fix
 
 - [`5fa8b6a`](https://github.com/jaedsonpys/pysgi/commit/5fa8b6a): Using **HTTPPyParser** to get request data.
+
+## **1.2.5**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.5)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.5/)
+
+### Fix
+
+- [`889f26d`](https://github.com/jaedsonpys/pysgi/commit/889f26d): Updating version from HTTPPyParser;
+- [`8558055`](https://github.com/jaedsonpys/pysgi/commit/8558055): Print full requested path in request log.
