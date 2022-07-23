@@ -13,7 +13,7 @@ setup(
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     packages=['pysgi'],
-    install_requires=['http-pyparser==0.2.2'],
+    install_requires=['http-pyparser==0.3.1'],
     license='MIT License',
     python_requires='>= 3.6',
     url='https://github.com/jaedsonpys/pysgi',
