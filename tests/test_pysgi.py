@@ -16,12 +16,12 @@ class TestPySGI(unittest.TestCase):
         self.assertEqual(response.cookies, {'authJWT': 'ey2808'}, msg='Expected cookies not equal')
 
     def test_make_response(self):
-        expected_message = 'HTTP/1.1 200\n' \
-                           'Server: PySGI\n' \
-                           'Content-Type: text/html\n' \
-                           'Authorization: Bearer 28082044d2\n' \
-                           'Set-Cookie: authJWT=ey2808\n\n' \
-                           'Hello'
+        expected_message = ('HTTP/1.1 200\n'
+                            'Server: PySGI\n'
+                            'Content-Type: text/html\n'
+                            'Authorization: Bearer 28082044d2\n'
+                            'Set-Cookie: authJWT=ey2808\n\n'
+                            'Hello')
 
         response = Response('Hello', status=200)
         response.set_cookie('authJWT', 'ey2808')
