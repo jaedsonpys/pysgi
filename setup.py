@@ -1,12 +1,11 @@
 from setuptools import setup
-from pysgi import __version__
 
 with open('DESCRIPTION.md', 'r') as reader:
     description = reader.read()
 
 setup(
     name='PySGI',
-    version=__version__,
+    version='1.2.6',
     description='The easy server library for everyone.',
     long_description=description,
     long_description_content_type='text/markdown',
