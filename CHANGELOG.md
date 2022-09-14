@@ -97,3 +97,12 @@
 
 - [`889f26d`](https://github.com/jaedsonpys/pysgi/commit/889f26d): Updating version from HTTPPyParser;
 - [`8558055`](https://github.com/jaedsonpys/pysgi/commit/8558055): Print full requested path in request log.
+
+## **1.2.6**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.6)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.6/)
+
+### Fix
+
+- [`8da5670`](https://github.com/jaedsonpys/pysgi/commit/8da5670): Fix `import error` adding version in setup.py.
