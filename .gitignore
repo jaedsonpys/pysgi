@@ -1,7 +1,14 @@
-venv
-__pycache__
-local_tests
-dist
+# enviroment
+venv/
+
+# cache
+__pycache__/
 *.egg-info
-build
+
+# tests
+local_tests/
 init.py
+
+# build
+dist
+build
