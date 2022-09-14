@@ -106,3 +106,12 @@
 ### Fix
 
 - [`8da5670`](https://github.com/jaedsonpys/pysgi/commit/8da5670): Fix `import error` adding version in setup.py.
+
+## **1.2.7**
+
+- [GitHub Release](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.7)
+- [PyPI Release](https://pypi.org/project/PySGI/1.2.7)
+
+### Fix
+
+- [`f36386a`](https://github.com/jaedsonpys/pysgi/commit/f36386a): Handle `InvalidHTTPMessageError` and returning bad request error.
