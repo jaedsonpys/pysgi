@@ -6,7 +6,7 @@ from socket import timeout as sock_timeout
 from threading import Thread
 from types import FunctionType
 
-from http_pyparser import HTTPParser
+import http_pyparser
 
 from ._sockethandler import Client
 from .response import Response, make_response
@@ -85,13 +85,13 @@ class Request(object):
         else:
             client.csocket.settimeout(None)
             
-        parser = HTTPParser()
-        request = parser.parser(client_msg.decode())
+        parser = http_pyparser.HTTPParser()
 
-        # if request.is_valid() is False:
-        #     # returning status 400 for invalid requests
-        #     response = Response('Bad Request', 400)
-        #     return self._send_response(client, response)
+        try:
+            request = parser.parser(client_msg.decode())
+        except http_pyparser.exceptions.InvalidHTTPMessageError:
+            response = Response('<h1>Bad Request<h1>', 400)
+            return self._send_response(client, response)
 
         route_info, parameters = self.get_route(request.path)
         request.parameters = parameters
