@@ -1,17 +1,18 @@
 # this file has all the code that handles
 # requests coming from a client.
 
-from typing import Union
 from socket import timeout as sock_timeout
 from threading import Thread
 from types import FunctionType
+from typing import Union
 
 import http_pyparser
 
+from ._default_responses import DefaultResponses
+from ._print import print_response
 from ._sockethandler import Client
 from .response import Response, make_response
 from .route import Route
-from ._print import print_response
 
 
 class Request(object):
@@ -90,18 +91,17 @@ class Request(object):
         try:
             request = parser.parser(client_msg.decode())
         except http_pyparser.exceptions.InvalidHTTPMessageError:
-            response = Response('<h1>Bad Request<h1>', 400)
-            return self._send_response(client, response)
+            return self._send_response(client, DefaultResponses.bad_request)
 
         route_info, parameters = self.get_route(request.path)
         request.parameters = parameters
 
         # if the route is not found
         if not route_info:
-            response = Response('Not Found', status=404)
+            response = DefaultResponses.not_found
         else:
             if request.method not in route_info.allowed_methods:
-                response = Response('Method Not Allowed', status=405)
+                response = DefaultResponses.method_not_allowed
             else:
                 route_function: FunctionType = route_info.function
 
