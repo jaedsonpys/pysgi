@@ -1,9 +1,9 @@
 from types import FunctionType
 
-from ._print import print_start
 from ._request import Request
 from ._sockethandler import SocketHandler
 from .route import Route
+from .utils._print import print_start
 
 _server = SocketHandler()
 ACCEPTED_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH']

@@ -8,11 +8,11 @@ from typing import Union
 
 import http_pyparser
 
-from .default_responses import DefaultResponses
-from ._print import print_response
 from ._sockethandler import Client
 from .response import Response, make_response
 from .route import Route
+from .utils._print import print_response
+from .utils.default_responses import DefaultResponses
 
 
 class Request(object):
