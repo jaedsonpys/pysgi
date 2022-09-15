@@ -103,3 +103,13 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.7/) or in the
 ## Fix
 
 - [f36386a](https://github.com/jaedsonpys/pysgi/commit/f36386a): Handle `InvalidHTTPMessageError` and returning bad request error.
+
+# 1.2.8
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.8/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.8).
+
+## Fix
+
+- [d9b026d](https://github.com/jaedsonpys/pysgi/commit/d9b026d): Fixing `request.args` attribute to `request.query` in documentation;
+- [077887b](https://github.com/jaedsonpys/pysgi/commit/077887b): Updating `http-pyparser` requirement version;
+- [c9bda32](https://github.com/jaedsonpys/pysgi/commit/c9bda32): Changing `CHANGELOG.md` design.
