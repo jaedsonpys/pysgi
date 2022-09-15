@@ -8,7 +8,7 @@ from typing import Union
 
 import http_pyparser
 
-from ._default_responses import DefaultResponses
+from .default_responses import DefaultResponses
 from ._print import print_response
 from ._sockethandler import Client
 from .response import Response, make_response
