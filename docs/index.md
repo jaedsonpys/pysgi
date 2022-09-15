@@ -10,14 +10,16 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 
 See [CHANGELOG.md](https://github.com/jaedsonpys/pysgi/blob/master/CHANGELOG.md) on GitHub for changes made to each release.
 
-## Links
+To start, install the PySGI using pip:
 
-- [Source Code](https://github.com/jaedsonpys/pysgi)
-- [PyPI Project](https://pypi.org/project/PySGI)
+```
+pip install PySGI
+```
 
 ## Version documentation
 
 - [1.1.0](https://jaedsonpys.github.io/pysgi/1.1.0)
 - [1.2.0](https://jaedsonpys.github.io/pysgi/1.2.0)
+- [1.2.4](https://jaedsonpys.github.io/pysgi/1.2.4)
 
 > Version 1.0.0 documentation is not available
