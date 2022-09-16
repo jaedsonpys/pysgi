@@ -1,5 +1,6 @@
 from types import FunctionType
 
+
 class Route(object):
     def __init__(self) -> None:
         self.function: FunctionType = None
