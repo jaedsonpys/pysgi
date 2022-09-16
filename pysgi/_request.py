@@ -3,7 +3,7 @@
 
 from socket import timeout as sock_timeout
 from types import FunctionType
-from typing import Union
+from typing import Tuple
 
 import http_pyparser
 
@@ -19,21 +19,41 @@ class Request(object):
         self._routes = routes
         self._client = client
 
-    def get_route(self, path: str) -> Union[Route, dict]:
-        path_split = path.split('/')
+    def _get_route_parameters(self, path_split: list, parameters: dict) -> dict:
         result = {}
         
+        for d in parameters:
+            index = d['index']
+            var_type = d['var_type']
+            name = d['name']
+
+            variable = path_split[index]
+            
+            if var_type == 'str':
+                variable = str(variable)
+            elif var_type == 'int':
+                variable = int(variable)
+            elif var_type == 'float':
+                variable = float(variable)
+
+            result[name] = variable
+
+        return result
+
+    def _get_route(self, path: str) -> Tuple[Route, dict]:
+        path_split = path.split('/')
+
         while '' in path_split:
             path_split.remove('')
 
-        for r in self._routes.values():
+        for route in self._routes.values():
             route_find = False
 
-            if r.path == path:
-                return r, result
-            elif len(path_split) == (len(r.parameters) + len(r.no_parameters)):
+            if path == route.path:
+                return (route, {})
+            elif len(path_split) == (len(route.parameters) + len(route.no_parameters)):
                 # checking if routes that are not parameters are available
-                for a in r.no_parameters:
+                for a in route.no_parameters:
                     if path_split[a['index']] == a['name']:
                         route_find = True
                     else:
@@ -42,27 +62,9 @@ class Request(object):
 
                 # if the route was found get its arguments
                 if route_find:
-                    for d in r.parameters:
-                        index = d['index']
-                        var_type = d['var_type']
-                        name = d['name']
-
-                        variable = path_split[index]
-                        
-                        if var_type == 'str':
-                            variable = str(variable)
-                        elif var_type == 'int':
-                            variable = int(variable)
-                        elif var_type == 'float':
-                            variable = float(variable)
-
-                        result[name] = variable
-
-                    return r, result
-
-        # if the code got here it means no
-        # dynamic route or default route found
-        return None, {}
+                    return (route, self._get_route_parameters(path_split, route.parameters))
+        
+        return None, None
 
     def handle_request(self) -> None:
         self._client.csocket.settimeout(2.5)
@@ -88,19 +90,19 @@ class Request(object):
         except http_pyparser.exceptions.InvalidHTTPMessageError:
             return self._send_response(self._client, DefaultResponses.bad_request)
 
-        route_info, parameters = self.get_route(request.path)
+        requested_route, parameters = self._get_route(request.path)
 
         request.parameters = parameters
         request.client_host = self._client.host
 
         # if the route is not found
-        if not route_info:
+        if not requested_route:
             response = DefaultResponses.not_found
         else:
-            if request.method not in route_info.allowed_methods:
+            if request.method not in requested_route.allowed_methods:
                 response = DefaultResponses.method_not_allowed
             else:
-                route_function: FunctionType = route_info.function
+                route_function: FunctionType = requested_route.function
 
                 try:
                     function_response = route_function.__call__(request)
