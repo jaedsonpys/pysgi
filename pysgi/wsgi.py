@@ -7,10 +7,9 @@ from .utils._print import print_start
 
 
 class PySGI(object):
-    routes = {}
-
     def __init__(self) -> None:
         self._server = SocketHandler()
+        self._routes = {}
 
     def route(self, path: str, methods: list = ['GET']) -> FunctionType:
         """Adds a new route to the application.
@@ -42,7 +41,7 @@ class PySGI(object):
 
         def decorator(func):
             _route.function = func
-            self.routes[path] = _route
+            self._routes[path] = _route
             return func
 
         return decorator
@@ -91,7 +90,7 @@ class PySGI(object):
         """
 
         address = self._server.create_socket(host=host, port=port)
-        request = Request(self.routes.copy())
+        request = Request(self._routes)
 
         print_start(*address)
 
