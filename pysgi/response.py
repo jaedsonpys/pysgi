@@ -93,6 +93,6 @@ def make_response(response_obj: Response) -> str:
         raise TypeError(f'The body argument can be "dict", "list", and "str", but not {type(response_obj.body)}')
 
     http.append(body_data)
-    http_message = '\n'.join(http)
+    http_message = '\r\n'.join(http)
 
     return http_message
