@@ -47,8 +47,8 @@ class PySGI(object):
 
         return decorator
 
-    def _register_dynamic_route(self, _route: Route, path: str) -> None:
-        split_path = path.split('/')
+    def _register_dynamic_route(self, route: Route, path: str) -> None:
+        split_path = path.split('/')        
         split_path.remove('')
 
         parameters = []
@@ -73,8 +73,8 @@ class PySGI(object):
                 no_parameters.append({'index': index, 'name': i})
 
         # register registering dynamic route variables
-        _route.parameters = parameters
-        _route.no_parameters = no_parameters
+        route.parameters = parameters
+        route.no_parameters = no_parameters
 
     def run(self, host: str = '127.0.0.1', port: int = 5500) -> None:
         """Starts the server on the specified host
