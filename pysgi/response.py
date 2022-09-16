@@ -64,12 +64,11 @@ def make_response(response_obj: Response) -> str:
     http.append(f'Server: {SERVER_NAME}')
     http.append(f'Content-Type: {response_obj.content_type}')
 
-    if response_obj.headers:
-        for key, value in response_obj.headers.items():
-            if key not in used_headers:
-                header_str = f'{key}: {value}'
-                used_headers.append(key)
-                http.append(header_str)
+    for key, value in response_obj.headers.items():
+        if key not in used_headers:
+            header_str = f'{key}: {value}'
+            used_headers.append(key)
+            http.append(header_str)
 
     if response_obj.cookies:
         cookies_list = []
@@ -94,18 +93,6 @@ def make_response(response_obj: Response) -> str:
         raise TypeError(f'The body argument can be "dict", "list", and "str", but not {type(response_obj.body)}')
 
     http.append(body_data)
-
     http_message = '\n'.join(http)
+
     return http_message
-
-
-if __name__ == '__main__':
-    response = Response({'status', 'Account created'}, status=201, content_type='application/json')
-
-    response.set_header('Access-Control', '*')
-    response.set_cookie('JWTAuth', 'ey28428377')
-    response.set_cookie('sessionId', '34349302')
-
-    http = make_response(response)
-
-    print(http)
