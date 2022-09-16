@@ -122,3 +122,18 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.9/) or in the
 
 - [9964efc](https://github.com/jaedsonpys/pysgi/commit/9964efc): Adding default error messages in **HTML**;
 - [e8fdac4](https://github.com/jaedsonpys/pysgi/commit/e8fdac4): Changing start and response log message.
+
+# 1.2.10
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.10/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.10).
+
+## Improvements
+
+- [533349b](https://github.com/jaedsonpys/pysgi/commit/533349b): Using `SocketHandler` instance as `PySGI` attribute;
+- [65d8c37](https://github.com/jaedsonpys/pysgi/commit/65d8c37): Adding `client_host` attribute to request object;
+- [739769f](https://github.com/jaedsonpys/pysgi/commit/739769f): Getting `client_host` in IPFilter plugin;
+- [f865e03](https://github.com/jaedsonpys/pysgi/commit/f865e03): Removing accepted methods list;
+- [18ebbe7](https://github.com/jaedsonpys/pysgi/commit/18ebbe7): Creating `_routes` dict inside of instance;
+- [a956f1c](https://github.com/jaedsonpys/pysgi/commit/a956f1c): Removing `use_environ` from `SocketHandler`;
+- [31b4623](https://github.com/jaedsonpys/pysgi/commit/31b4623): Restructuring thread creating to handle requests;
+- [ed8c1bc](https://github.com/jaedsonpys/pysgi/commit/ed8c1bc): End line with "\r\n" in HTTP message.
