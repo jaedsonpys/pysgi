@@ -3,7 +3,7 @@
 
 from socket import timeout as sock_timeout
 from types import FunctionType
-from typing import Tuple
+from typing import Tuple, Union
 
 import http_pyparser
 
@@ -66,27 +66,29 @@ class Request(object):
         
         return None, None
 
-    def handle_request(self) -> None:
+    def _get_client_data(self) -> Union[str, None]:
         self._client.csocket.settimeout(2.5)
 
         try:
             client_msg = self._client.csocket.recv(1024)
         except sock_timeout:
-            # in this situation, the client has not
-            # sent any message to the server, and
-            # therefore its request cannot be processed,
-            # closing the connection with the client
-            # without returning anything.
-            
+            return None
+
+        self._client.csocket.settimeout(None)
+        return client_msg.decode()
+
+    def handle_request(self) -> None:
+        client_msg = self._get_client_data()
+
+        if not client_msg:
+            # the client has not sent anything, so it is an invalid request.
             self._client.csocket.close()
             return None
-        else:
-            self._client.csocket.settimeout(None)
-            
+
         parser = http_pyparser.HTTPParser()
 
         try:
-            request = parser.parser(client_msg.decode())
+            request = parser.parser(client_msg)
         except http_pyparser.exceptions.InvalidHTTPMessageError:
             return self._send_response(self._client, DefaultResponses.bad_request)
 
