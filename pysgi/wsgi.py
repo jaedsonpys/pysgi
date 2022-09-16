@@ -5,12 +5,14 @@ from ._sockethandler import SocketHandler
 from .route import Route
 from .utils._print import print_start
 
-_server = SocketHandler()
 ACCEPTED_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH']
 
 
 class PySGI(object):
     routes = {}
+
+    def __init__(self) -> None:
+        self._server = SocketHandler()
 
     def route(self, path: str, methods: list = ['GET']) -> FunctionType:
         """Adds a new route to the application.
@@ -92,14 +94,14 @@ class PySGI(object):
         :type port: str, optional
         """
 
-        address = _server.create_socket(host=host, port=port)
+        address = self._server.create_socket(host=host, port=port)
         request = Request(self.routes.copy())
 
         print_start(*address)
 
         try:
             while True:
-                client = _server.wait_connection()
+                client = self._server.wait_connection()
                 request.handle_request(client)
         except KeyboardInterrupt:
-            _server.close_server()
+            self._server.close_server()
