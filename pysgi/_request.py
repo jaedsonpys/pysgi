@@ -2,7 +2,6 @@
 # requests coming from a client.
 
 from socket import timeout as sock_timeout
-from threading import Thread
 from types import FunctionType
 from typing import Union
 
@@ -16,13 +15,9 @@ from .utils.default_responses import DefaultResponses
 
 
 class Request(object):
-    def __init__(self, routes: dict[Route]) -> None:
+    def __init__(self, client: Client, routes: dict[Route]) -> None:
         self._routes = routes
-
-    def handle_request(self, client: Client) -> None:
-        # create a thread to handle request
-        ct = Thread(target=self._handle_request, args=(client,))
-        ct.start()
+        self._client = client
 
     def get_route(self, path: str) -> Union[Route, dict]:
         path_split = path.split('/')
@@ -69,11 +64,11 @@ class Request(object):
         # dynamic route or default route found
         return None, {}
 
-    def _handle_request(self, client: Client) -> None:
-        client.csocket.settimeout(2.5)
+    def handle_request(self) -> None:
+        self._client.csocket.settimeout(2.5)
 
         try:
-            client_msg = client.csocket.recv(1024)
+            client_msg = self._client.csocket.recv(1024)
         except sock_timeout:
             # in this situation, the client has not
             # sent any message to the server, and
@@ -81,22 +76,22 @@ class Request(object):
             # closing the connection with the client
             # without returning anything.
             
-            client.csocket.close()
+            self._client.csocket.close()
             return None
         else:
-            client.csocket.settimeout(None)
+            self._client.csocket.settimeout(None)
             
         parser = http_pyparser.HTTPParser()
 
         try:
             request = parser.parser(client_msg.decode())
         except http_pyparser.exceptions.InvalidHTTPMessageError:
-            return self._send_response(client, DefaultResponses.bad_request)
+            return self._send_response(self._client, DefaultResponses.bad_request)
 
         route_info, parameters = self.get_route(request.path)
 
         request.parameters = parameters
-        request.client_host = client.host
+        request.client_host = self._client.host
 
         # if the route is not found
         if not route_info:
@@ -122,11 +117,10 @@ class Request(object):
                 elif isinstance(function_response, Response):
                     response = function_response
 
-        self._send_response(client, response)
-        print_response(response.status, request.real_path, request.method, client.host)
+        self._send_response(response)
+        print_response(response.status, request.real_path, request.method, self._client.host)
 
-    @staticmethod
-    def _send_response(client: Client, response: Response) -> None:
+    def _send_response(self, response: Response) -> None:
         http_response = make_response(response)
-        client.csocket.send(http_response.encode())
-        client.csocket.close()
+        self._client.csocket.send(http_response.encode())
+        self._client.csocket.close()

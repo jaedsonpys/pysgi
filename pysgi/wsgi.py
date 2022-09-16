@@ -1,4 +1,5 @@
 from types import FunctionType
+from threading import Thread
 
 from ._request import Request
 from ._sockethandler import SocketHandler
@@ -90,13 +91,13 @@ class PySGI(object):
         """
 
         address = self._server.create_socket(host=host, port=port)
-        request = Request(self._routes)
-
         print_start(*address)
 
         try:
             while True:
                 client = self._server.wait_connection()
-                request.handle_request(client)
+
+                request = Request(client, self._routes)
+                Thread(target=request.handle_request).start()
         except KeyboardInterrupt:
             self._server.close_server()
