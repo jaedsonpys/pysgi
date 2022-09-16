@@ -46,10 +46,7 @@ class SocketHandler(object):
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
-        _host, _port = addr[0], addr[1]
-
-        client = Client(client_socket, _host, _port)
-        return client
+        return Client(client_socket, *addr)
 
     def send_response(client: Client, response: bytes) -> None:
         client.csocket.send(response)
