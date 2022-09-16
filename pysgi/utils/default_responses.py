@@ -16,3 +16,8 @@ class DefaultResponses:
         body='<h1>Method not allowed<h1>',
         status=405
     )
+
+    unauthorized = Response(
+        body='<h1>Unauthorized<h1>',
+        status=401
+    )

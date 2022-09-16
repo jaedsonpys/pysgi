@@ -1,5 +1,8 @@
-from types import FunctionType
 from functools import wraps
+from types import FunctionType
+
+from .utils.default_responses import DefaultResponses
+
 
 class IPFilter(object):
     _permitted: list = []
@@ -9,10 +12,11 @@ class IPFilter(object):
 
     def ipfilter(self, func: FunctionType) -> FunctionType:
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            request = args[0]
-            if request.host in self._permitted:
-                return func(*args, **kwargs)
+        def wrapper(request):
+            host = request.client_host
+
+            if host in self._permitted:
+                return func(request)
             else:
-                return "Unauthorized", 401
+                return DefaultResponses.unauthorized
         return wrapper
