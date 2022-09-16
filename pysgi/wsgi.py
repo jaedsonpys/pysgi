@@ -5,8 +5,6 @@ from ._sockethandler import SocketHandler
 from .route import Route
 from .utils._print import print_start
 
-ACCEPTED_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH']
-
 
 class PySGI(object):
     routes = {}
@@ -36,10 +34,8 @@ class PySGI(object):
 
         _route = Route()
         _route.path = path
-        
-        for m in methods:
-            if m.upper() in ACCEPTED_METHODS:
-                _route.allowed_methods.append(m)
+
+        _route.allowed_methods = [m.upper() for m in methods]
 
         if '<' in path and '>' in path:
             self._register_dynamic_route(_route, path)
