@@ -19,6 +19,7 @@ class Client(object):
     def __repr__(self) -> str:
         return f'Client(csocket={self.csocket}, host={self.host}, port={self.port})'
 
+
 class SocketHandler(object):
     def __init__(self) -> None:
         self._socket: socket.socket
