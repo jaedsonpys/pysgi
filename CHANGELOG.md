@@ -113,3 +113,12 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.8/) or in the
 - [d9b026d](https://github.com/jaedsonpys/pysgi/commit/d9b026d): Fixing `request.args` attribute to `request.query` in documentation;
 - [077887b](https://github.com/jaedsonpys/pysgi/commit/077887b): Updating `http-pyparser` requirement version;
 - [c9bda32](https://github.com/jaedsonpys/pysgi/commit/c9bda32): Changing `CHANGELOG.md` design.
+
+# 1.2.9
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.9/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.2.9).
+
+## Additions
+
+- [9964efc](https://github.com/jaedsonpys/pysgi/commit/9964efc): Adding default error messages in **HTML**;
+- [e8fdac4](https://github.com/jaedsonpys/pysgi/commit/e8fdac4): Changing start and response log message.
