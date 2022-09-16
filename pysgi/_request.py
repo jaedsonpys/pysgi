@@ -94,7 +94,9 @@ class Request(object):
             return self._send_response(client, DefaultResponses.bad_request)
 
         route_info, parameters = self.get_route(request.path)
+
         request.parameters = parameters
+        request.client_host = client.host
 
         # if the route is not found
         if not route_info:
