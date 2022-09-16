@@ -11,17 +11,8 @@ class Client(object):
     message that was sent by it.
     """
 
-    csocket: socket.socket
-    host: str
-    port: int
-
-    def __init__(
-        self,
-        _socket: socket.socket,
-        host: str,
-        port: int,
-    ) -> None:
-        self.csocket = _socket
+    def __init__(self, csocket: socket.socket, host: str, port: int,) -> None:
+        self.csocket = csocket
         self.host = host
         self.port = port
 
@@ -38,7 +29,6 @@ class SocketHandler(object):
 
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
         self._socket.bind(address)
         self._socket.listen(self._listen_max)
 
