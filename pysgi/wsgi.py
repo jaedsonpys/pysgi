@@ -75,7 +75,7 @@ class PySGI(object):
         _route.parameters = parameters
         _route.no_parameters = no_parameters
 
-    def run(self, host: str = None, port: str = None) -> None:
+    def run(self, host: str = '127.0.0.1', port: int = 5500) -> None:
         """Starts the server on the specified host
         and port (or not).
 
@@ -83,9 +83,9 @@ class PySGI(object):
         starts waiting for connections and
         starting threads to handle requests.
 
-        :param host: _description_, defaults to '127.0.0.1'
+        :param host: Host, defaults to '127.0.0.1'
         :type host: str, optional
-        :param port: _description_, defaults to 5500
+        :param port: Port, defaults to 5500
         :type port: str, optional
         """
 
