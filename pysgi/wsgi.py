@@ -31,17 +31,17 @@ class PySGI(object):
         if not isinstance(methods, list):
             raise TypeError(f'A named list of methods is required, not {type(methods)}')
 
-        _route = Route()
-        _route.path = path
+        new_route = Route()
 
-        _route.allowed_methods = [m.upper() for m in methods]
+        new_route.path = path
+        new_route.allowed_methods = [m.upper() for m in methods]
 
         if '<' in path and '>' in path:
-            self._register_dynamic_route(_route, path)
+            self._register_dynamic_route(new_route, path)
 
         def decorator(func):
-            _route.function = func
-            self._routes[path] = _route
+            new_route.function = func
+            self._routes[path] = new_route
             return func
 
         return decorator
