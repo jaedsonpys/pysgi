@@ -5,7 +5,7 @@ with open('DESCRIPTION.md', 'r') as reader:
 
 setup(
     name='PySGI',
-    version='1.2.8',
+    version='1.2.9',
     description='The easy server library for everyone.',
     long_description=description,
     long_description_content_type='text/markdown',
