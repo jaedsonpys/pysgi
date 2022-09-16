@@ -99,5 +99,5 @@ class PySGI(object):
 
                 request = Request(client, self._routes)
                 Thread(target=request.handle_request).start()
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, SystemExit, SystemError):
             self._server.close_server()
