@@ -1,6 +1,4 @@
-# this file has all the code that handles
-# requests coming from a client.
-
+import json
 from socket import timeout as sock_timeout
 from types import FunctionType
 from typing import Tuple, Union
@@ -12,6 +10,37 @@ from .response import Response, make_response
 from .route import Route
 from .utils._print import print_response
 from .utils.default_responses import DefaultResponses
+
+
+class RequestData(object):
+    def __init__(
+        self,
+        http_data: http_pyparser.HTTPData,
+        parameters: dict,
+        client_host: str
+    ) -> None:
+        self.real_path = http_data.real_path
+
+        self.path = http_data.path
+        self.method = http_data.method
+        self.version = http_data.version
+        
+        self.user_agent = http_data.user_agent
+        self.accept = http_data.accept
+        self.body = http_data.body
+
+        self.host = client_host
+        self.parameters = parameters
+
+        self.headers = {}
+        self.cookies = {}
+        self.query = {}
+
+    def __repr__(self) -> str:
+        return (f'RequestData(real_path="{self.real_path}", path="{self.path}", method="{self.method}", '
+                f'version="{self.version}", host="{self.host}", user_agent="{self.user_agent}", '
+                f'accept="{self.accept}", body={self.body}, headers={self.headers}, '
+                f'cookies={self.cookies}, query={self.query}, parameters={self.parameters})')
 
 
 class Request(object):
@@ -88,19 +117,18 @@ class Request(object):
         parser = http_pyparser.HTTPParser()
 
         try:
-            request = parser.parser(client_msg)
+            parsed_http = parser.parser(client_msg)
         except http_pyparser.exceptions.InvalidHTTPMessageError:
             return self._send_response(self._client, DefaultResponses.bad_request)
 
-        requested_route, parameters = self._get_route(request.path)
-
-        request.parameters = parameters
-        request.client_host = self._client.host
+        requested_route, parameters = self._get_route(parsed_http.path)
 
         # if the route is not found
         if not requested_route:
             response = DefaultResponses.not_found
         else:
+            request = RequestData(parsed_http, parameters, self._client.host)
+
             if request.method not in requested_route.allowed_methods:
                 response = DefaultResponses.method_not_allowed
             else:
