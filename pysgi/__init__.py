@@ -23,6 +23,5 @@ Access our official repository and get more information.
 
 from .wsgi import PySGI
 from .response import Response
-from .plugins import *
 
 __version__ = '1.3.0'
