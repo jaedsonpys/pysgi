@@ -10,21 +10,21 @@ class Response(object):
 
     def __init__(
         self,
-        body: Union[str, dict, list],
+        body: Union[str, dict, list, int, float],
         status: int = 200,
         content_type: str = 'text/html',
     ) -> None:
         """Create a response.
 
         :param body: Body.
-        :type body: Union[str, dict, list]
+        :type body: Union[str, dict, list, int, float]
         :param status: HTTP status code, defaults to 200
         :type status: int, optional
         :param content_type: Response content type, defaults to 'text/html'
         :type content_type: str, optional
         """
 
-        self.body: Union[str, dict, list] = body
+        self.body: Union[str, dict, list, int, float] = body
         self.status: int = status
         self.content_type: str = content_type
 
