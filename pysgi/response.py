@@ -50,7 +50,8 @@ def make_response(response_obj: Response) -> str:
 
     :param response_obj: Response object.
     :type response_obj: Response
-    :raises TypeError: If the body's data type is not "str", "dict" or "list".
+    :raises TypeError: If the body's data type is not 
+    "str", "float", "int", "dict" or "list".
     :return: Returns the HTTP message
     :rtype: str
     """
@@ -62,7 +63,18 @@ def make_response(response_obj: Response) -> str:
 
     # set default headers
     http.append(f'Server: {SERVER_NAME}')
-    http.append(f'Content-Type: {response_obj.content_type}')
+    
+    # if the body is a JSON
+    if type(response_obj.body) in (dict, list):
+        body_data = json.dumps(response_obj.body)
+        http.append(f'Content-Type: application/json')
+    elif type(response_obj.body) in (str, int, float):
+        body_data = str(response_obj.body)
+        http.append(f'Content-Type: {response_obj.content_type}')
+    else:
+        # body type not accepted
+        raise TypeError(f'The body argument can be "dict", "list", "int", '
+                        f'"float", and "str", but not {type(response_obj.body)}')
 
     for key, value in response_obj.headers.items():
         if key not in used_headers:
@@ -82,17 +94,8 @@ def make_response(response_obj: Response) -> str:
 
     # defining the body of the response
     http.append('')
-    
-    # if the body is a JSON
-    if isinstance(response_obj.body, dict) or isinstance(response_obj.body, list):
-        body_data = json.dumps(response_obj.body)
-    elif isinstance(response_obj.body, str):
-        body_data = response_obj.body
-    else:
-        # body type not accepted
-        raise TypeError(f'The body argument can be "dict", "list", and "str", but not {type(response_obj.body)}')
-
     http.append(body_data)
+
     http_message = '\r\n'.join(http)
 
     return http_message
