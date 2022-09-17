@@ -157,7 +157,7 @@ class Request(object):
         try:
             parsed_http = parser.parser(client_msg)
         except http_pyparser.exceptions.InvalidHTTPMessageError:
-            return self._send_response(self._client, DefaultResponses.bad_request)
+            return self._send_response(DefaultResponses.bad_request)
 
         requested_route, parameters = self._get_route(parsed_http.path)
         request = RequestData(parsed_http, parameters, self._client.host)
