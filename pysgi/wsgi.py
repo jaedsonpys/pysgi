@@ -1,3 +1,4 @@
+import sys
 from types import FunctionType
 from threading import Thread
 
@@ -90,7 +91,14 @@ class PySGI(object):
         :type port: str, optional
         """
 
-        address = self._server.create_socket(host=host, port=port)
+        try:
+            address = self._server.create_socket(host=host, port=port)
+        except OSError:
+            print(f'\033[31m* ERROR: The server cannot be started at {host}:{port}.\n  '
+                   'Check if there are any services \033[4mrunning at this address\033[m\033[31m and try again.\033[m')
+
+            sys.exit(1)
+
         print_start(*address)
 
         try:
