@@ -126,6 +126,24 @@ class Request(object):
         self._client.csocket.settimeout(None)
         return client_msg.decode()
 
+    def _get_route_response(self, function: FunctionType, request: RequestData) -> Response:
+        try:
+            function_response = function.__call__(request)
+        except TypeError:
+            function_response = function.__call__()
+
+        if isinstance(function_response, tuple):
+            # getting body and status of response 
+            # in use cases of: return "Hello", 200.
+            body, status = function_response
+            response = Response(body, status=status)
+        elif isinstance(function_response, str):
+            response = Response(function_response)
+        elif isinstance(function_response, Response):
+            response = function_response
+
+        return response
+
     def handle_request(self) -> None:
         client_msg = self._get_client_data()
 
@@ -152,22 +170,8 @@ class Request(object):
             if request.method not in requested_route.allowed_methods:
                 response = DefaultResponses.method_not_allowed
             else:
-                route_function: FunctionType = requested_route.function
-
-                try:
-                    function_response = route_function.__call__(request)
-                except TypeError:
-                    function_response = route_function.__call__()
-
-                if isinstance(function_response, tuple):
-                    # getting body and status of response 
-                    # in use cases of: return "Hello", 200.
-                    body, status = function_response
-                    response = Response(body, status=status)
-                elif isinstance(function_response, str):
-                    response = Response(function_response)
-                elif isinstance(function_response, Response):
-                    response = function_response
+                route_function = requested_route.function
+                response = self._get_route_response(route_function, request)
 
         self._send_response(response)
         print_response(response.status, request.real_path, request.method, self._client.host)
