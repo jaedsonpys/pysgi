@@ -128,19 +128,19 @@ class Request(object):
 
     def _get_route_response(self, function: FunctionType, request: RequestData) -> Response:
         try:
-            function_response = function.__call__(request)
+            route_response = function.__call__(request)
         except TypeError:
-            function_response = function.__call__()
+            route_response = function.__call__()
 
-        if isinstance(function_response, tuple):
+        if isinstance(route_response, tuple):
             # getting body and status of response 
             # in use cases of: return "Hello", 200.
-            body, status = function_response
+            body, status = route_response
             response = Response(body, status=status)
-        elif isinstance(function_response, str):
-            response = Response(function_response)
-        elif isinstance(function_response, Response):
-            response = function_response
+        elif isinstance(route_response, Response):
+            response = route_response
+        else:
+            response = Response(route_response)
 
         return response
 
@@ -160,12 +160,12 @@ class Request(object):
             return self._send_response(self._client, DefaultResponses.bad_request)
 
         requested_route, parameters = self._get_route(parsed_http.path)
+        request = RequestData(parsed_http, parameters, self._client.host)
 
         # if the route is not found
         if not requested_route:
             response = DefaultResponses.not_found
         else:
-            request = RequestData(parsed_http, parameters, self._client.host)
 
             if request.method not in requested_route.allowed_methods:
                 response = DefaultResponses.method_not_allowed
