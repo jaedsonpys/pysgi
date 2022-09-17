@@ -33,17 +33,21 @@ class SocketHandler(object):
 
         if host == '0.0.0.0':
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-                client.connect(('google.com', 80))
+                client.settimeout(.2)
+
+                try:
+                    client.connect(('google.com', 80))
+                except (socket.timeout, socket.error):
+                    pass
+                
                 host = client.getsockname()[0]
+                client.close()
 
         return (host, port)
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
         return Client(client_socket, *addr)
-
-    def send_response(client: Client, response: bytes) -> None:
-        client.csocket.send(response)
 
     def close_server(self) -> None:
         self._socket.shutdown(socket.SHUT_RDWR)
