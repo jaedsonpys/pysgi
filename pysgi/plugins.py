@@ -13,7 +13,7 @@ class IPFilter(object):
     def ipfilter(self, func: FunctionType) -> FunctionType:
         @wraps(func)
         def wrapper(request):
-            host = request.client_host
+            host = request.host
 
             if host in self._permitted:
                 return func(request)
