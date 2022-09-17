@@ -26,14 +26,17 @@ class SocketHandler(object):
         self._listen_max = 128
 
     def create_socket(self, host: str = None, port: int = None) -> tuple:        
-        address = (host, port)
-
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self._socket.bind(address)
+        self._socket.bind((host, port))
         self._socket.listen(self._listen_max)
 
-        return address
+        if host == '0.0.0.0':
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+                client.connect(('google.com', 80))
+                host = client.getsockname()[0]
+
+        return (host, port)
 
     def wait_connection(self) -> Client:
         client_socket, addr = self._socket.accept()
