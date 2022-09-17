@@ -1,5 +1,4 @@
 from pysgi import PySGI
-from pysgi import Response
 from pysgi.plugins import IPFilter
 
 server = PySGI()
