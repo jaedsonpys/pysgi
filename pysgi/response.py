@@ -67,14 +67,21 @@ def make_response(response_obj: Response) -> str:
     # if the body is a JSON
     if type(response_obj.body) in (dict, list):
         body_data = json.dumps(response_obj.body)
-        http.append(f'Content-Type: application/json')
+        content_type = 'application/json'
     elif type(response_obj.body) in (str, int, float):
         body_data = str(response_obj.body)
-        http.append(f'Content-Type: {response_obj.content_type}')
+        content_type = 'text/html'
     else:
         # body type not accepted
         raise TypeError(f'The body argument can be "dict", "list", "int", '
                         f'"float", and "str", but not {type(response_obj.body)}')
+
+    if response_obj.content_type != 'text/html':
+        http.append(f'Content-Type: {response_obj.content_type}')
+    elif response_obj.headers.get('Content-Type'):
+        http.append(f'Content-Type: {response_obj.headers.get("Content-Type")}')
+    else:
+        http.append(f'Content-Type: {content_type}')
 
     for key, value in response_obj.headers.items():
         if key not in used_headers:
