@@ -25,4 +25,4 @@ from .wsgi import PySGI
 from .response import Response
 from .plugins import *
 
-__version__ = '1.2.10'
+__version__ = '1.3.0'
