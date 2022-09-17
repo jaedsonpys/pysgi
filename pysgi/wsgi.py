@@ -104,8 +104,11 @@ class PySGI(object):
         try:
             while True:
                 client = self._server.wait_connection()
-
                 request = Request(client, self._routes)
-                Thread(target=request.handle_request).start()
+
+                th = Thread(target=request.handle_request)
+                th.setDaemon(True)
+                th.start()
         except (KeyboardInterrupt, SystemExit, SystemError):
             self._server.close_server()
+            sys.exit(0)
