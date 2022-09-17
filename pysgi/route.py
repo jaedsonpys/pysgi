@@ -10,19 +10,10 @@ class Route(object):
         self.path: str = None
 
     def __repr__(self) -> str:
-        """
-        @return: str
-        """
-        return (
-            f"Route(function={self.function}, allowed_methods={self.allowed_methods}, " \
-            f"path={self.path}, parameters={self.parameters}, no_parameters={self.no_parameters})"
-        )
+        return (f'Route(function={self.function}, allowed_methods={self.allowed_methods}, '
+                f'path={self.path}, parameters={self.parameters}, no_parameters={self.no_parameters})')
 
     def __eq__(self, other: object) -> bool:
-        """
-        @param other: object
-        @return: bool
-        """
         if isinstance(other, Route):
             return (
                 self.function == other.function and
@@ -31,4 +22,5 @@ class Route(object):
                 self.parameters == other.parameters and
                 self.no_parameters == other.no_parameters
             )
+
         return False
