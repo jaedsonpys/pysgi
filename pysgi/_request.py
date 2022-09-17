@@ -36,6 +36,26 @@ class RequestData(object):
         self.cookies = {}
         self.query = {}
 
+    def json(self) -> Union[None, dict]:
+        """Return body as JSON.
+
+        If None is returned, it means that the request
+        does not have a body.
+
+        This method does not handle exceptions,
+        decoding errors will be thrown by the `json` module
+
+        :return: Body as JSON format
+        :rtype: Union[None, dict]
+        """
+
+        if self.body:
+            data = json.loads(self.body)
+        else:
+            data = None
+
+        return data
+
     def __repr__(self) -> str:
         return (f'RequestData(real_path="{self.real_path}", path="{self.path}", method="{self.method}", '
                 f'version="{self.version}", host="{self.host}", user_agent="{self.user_agent}", '
