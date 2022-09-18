@@ -5,13 +5,13 @@ with open('DESCRIPTION.md', 'r') as reader:
 
 setup(
     name='PySGI',
-    version='1.3.0',
+    version='1.3.1',
     description='The easy server library for everyone.',
     long_description=description,
     long_description_content_type='text/markdown',
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
-    packages=['pysgi'],
+    packages=['pysgi', 'pysgi/utils'],
     install_requires=['http-pyparser==0.3.2'],
     license='MIT License',
     python_requires='>= 3.6',
