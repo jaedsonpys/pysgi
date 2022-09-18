@@ -155,3 +155,11 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.0/) or in the
 - [f9e3a5e](https://github.com/jaedsonpys/pysgi/commit/f9e3a5e): Removing `send_response` method from `SocketHandler`;
 - [1bf496b](https://github.com/jaedsonpys/pysgi/commit/1bf496b): Creating daemon threads to manage requests;
 - [0683d35](https://github.com/jaedsonpys/pysgi/commit/0683d35): Removing `plugins` import.
+
+# 1.3.1
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.1/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.3.1).
+
+## Fixes
+
+- [64ac964](https://github.com/jaedsonpys/pysgi/commit/64ac964): Adding `pysgi/utils` to packages in setup script.
