@@ -29,12 +29,12 @@ class RequestData(object):
         self.accept = http_data.accept
         self.body = http_data.body
 
+        self.query = http_data.query
+        self.headers = http_data.headers
+        self.cookies = http_data.cookies
+
         self.host = client_host
         self.parameters = parameters
-
-        self.headers = {}
-        self.cookies = {}
-        self.query = {}
 
     def json(self) -> Union[None, dict]:
         """Return body as JSON.
