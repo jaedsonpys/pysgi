@@ -1,4 +1,4 @@
-# PySGI Library, fast and simple
+# PySGI Library
 
 PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, giving access to various features, such as:
 
@@ -6,7 +6,8 @@ PySGI is a WSGI library that allows you to receive and handle `HTTP requests`, g
 - Get or set all cookies coming from the browser;
 - Add or get the body of an HTTP response or request;
 - Can get parameters from URL;
-- Get values ​​from a dynamic route.
+- Get values ​​from a dynamic route;
+- Returning JSON and other data types.
 
 You can learn how to use `PySGI` in the project's [official documentation](https://jaedsonpys.github.io/pysgi/). See [CHANGELOG.md](https://github.com/jaedsonpys/pysgi/blob/master/CHANGELOG.md) on GitHub for changes made to each release.
 
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
 ```
 
-You can find this usage example in [examples/simple_server.py](https://github.com/jaedsonpys/pysgi/blob/master/examples/simple_server.py)
+You can find this and other examples in the [example usage files](https://github.com/jaedsonpys/pysgi/tree/master/examples).
 
 # License
 
