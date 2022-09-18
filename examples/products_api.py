@@ -15,7 +15,7 @@ def index():
 
 @server.route('/product')
 def get_product_by_id(request):
-    product_id = request.args.get('id')
+    product_id = request.query.get('id')
     product_data = None
 
     for item in products:
