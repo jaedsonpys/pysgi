@@ -163,3 +163,11 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.1/) or in the
 ## Fixes
 
 - [64ac964](https://github.com/jaedsonpys/pysgi/commit/64ac964): Adding `pysgi/utils` to packages in setup script.
+
+# 1.3.2
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.2/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.3.2).
+
+## Fixes
+
+- [90fb4d1](https://github.com/jaedsonpys/pysgi/commit/90fb4d1): Fix None value to query, headers and cookies in `ResponseData`
