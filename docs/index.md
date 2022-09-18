@@ -18,6 +18,8 @@ pip install PySGI
 
 ## Version documentation
 
+Only Major and Minor versions are documented.
+
 - [1.1.0](https://jaedsonpys.github.io/pysgi/1.1.0)
 - [1.2.0](https://jaedsonpys.github.io/pysgi/1.2.0)
 - [1.2.4](https://jaedsonpys.github.io/pysgi/1.2.4)
