@@ -137,3 +137,21 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.2.10/) or in th
 - [a956f1c](https://github.com/jaedsonpys/pysgi/commit/a956f1c): Removing `use_environ` from `SocketHandler`;
 - [31b4623](https://github.com/jaedsonpys/pysgi/commit/31b4623): Restructuring thread creating to handle requests;
 - [ed8c1bc](https://github.com/jaedsonpys/pysgi/commit/ed8c1bc): End line with "\r\n" in HTTP message.
+
+# 1.3.0
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.0/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.3.0).
+
+## Features
+
+- [087b7ef](https://github.com/jaedsonpys/pysgi/commit/087b7ef): Adding `RequestData` class to store request data;
+- [b11b80a](https://github.com/jaedsonpys/pysgi/commit/b11b80a): Setting content type if the body is a dictionary or list;
+- [bb90817](https://github.com/jaedsonpys/pysgi/commit/bb90817): Getting IP machine if host is `0.0.0.0`;
+- [46a236e](https://github.com/jaedsonpys/pysgi/commit/46a236e): Adding error message if server cannot be started;
+
+## Improvements
+
+- [521343a](https://github.com/jaedsonpys/pysgi/commit/521343a): Adding `_get_route_response` method in Request;
+- [f9e3a5e](https://github.com/jaedsonpys/pysgi/commit/f9e3a5e): Removing `send_response` method from `SocketHandler`;
+- [1bf496b](https://github.com/jaedsonpys/pysgi/commit/1bf496b): Creating daemon threads to manage requests;
+- [0683d35](https://github.com/jaedsonpys/pysgi/commit/0683d35): Removing `plugins` import.
