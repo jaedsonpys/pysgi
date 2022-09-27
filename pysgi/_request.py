@@ -64,7 +64,7 @@ class RequestData(object):
 
 
 class Request(object):
-    def __init__(self, client: Client, routes: dict[Route]) -> None:
+    def __init__(self, client: Client, routes: dict) -> None:
         self._routes = routes
         self._client = client
 
