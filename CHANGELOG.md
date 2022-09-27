@@ -171,3 +171,11 @@ Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.2/) or in the
 ## Fixes
 
 - [90fb4d1](https://github.com/jaedsonpys/pysgi/commit/90fb4d1): Fix None value to query, headers and cookies in `ResponseData`
+
+# 1.3.3
+
+Find this version on [**PyPI**](https://pypi.org/project/PySGI/1.3.3/) or in the releases on [**GitHub**](https://github.com/jaedsonpys/pysgi/releases/tag/1.3.3).
+
+## Fixes
+
+- [9b4bf50](https://github.com/jaedsonpys/pysgi/commit/9b4bf50): Fix `TypeError` in argument type.
